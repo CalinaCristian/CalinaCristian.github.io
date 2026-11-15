@@ -135,6 +135,23 @@ export function buildWallsBarriers(ctx) {
                 }
             }
         }
+        // the junction (three or more carriageways) where two edges' own ways meet, each followed through plain nodes for up
+        // to 45 m from the edge: the split or merge node of two carriageways that part there (null when there is none)
+        const chainCache = new Map();
+        const chainJunctions = e => {
+            let m = chainCache.get(e); if (m) return m; chainCache.set(e, m = new Set());
+            for (const start of [e.a, e.b]) {
+                let n = start, from = e, d = 0;
+                for (let k = 0; k < 12 && d <= 45; k++) {
+                    const es = n.edges.filter(f => !f.virtual);
+                    if (es.length >= 3) { m.add(n); break; }
+                    if (es.length !== 2) break;
+                    const f = es[0] === from ? es[1] : es[0]; d += f.len; from = f; n = f.a === n ? f.b : f.a;
+                }
+            }
+            return m;
+        };
+        const splitMate = (e, f) => { if (e === f) return null; const A = chainJunctions(e); for (const n of chainJunctions(f)) if (A.has(n)) return n; return null; };
         // final rule: no wall piece may stand on another carriageway / junction pad at its own height band (junction
         // mouths, merging ramps, overlapping ribbons stay open). Walls are cut into 1.5 m pieces and re-joined.
         blocksLane = (w, x, z, f) => {
@@ -191,6 +208,15 @@ export function buildWallsBarriers(ctx) {
                 if (sib) { const n = (rb.e.a === w.edge.a || rb.e.a === w.edge.b) ? rb.e.a : rb.e.b;
                     const hS = Y.road + yAlong(rb.e,x,z), own = (y0 + y1) / 2;
                     if (Math.hypot(x - n.x, z - n.z) < ((rb.e.bridge || w.edge.bridge) ? 40 : 15) && Math.abs(hS - own) < 1.6 && polyDist(x, z, rb.poly) > 0.5) { hit = true; return; } } // (a deck leaving its street at a split: no barrier in the street's lane — play-test note 12)
+                // (owner, 2026-11-15, SeaTac (-953, 995): "borders in the middle of the road") the same at any split or merge where
+                // two carriageways part at a narrow angle and run on overlapping for a few edges (Arrivals Drive and the
+                // Return-to-Terminal ramp climbing beside it): their drop barriers stood as short grey wedges in the other's lanes
+                // 14-20 m past the split node. A barrier of one is cut where it lies inside the other's lanes, within 40 m of the
+                // node they share along their own ways.
+                if (rb.e && w.edge && !w.node && Math.abs(rb.e.dirx * w.edge.dirx + rb.e.dirz * w.edge.dirz) > 0.85 && polyDist(x, z, rb.poly) > 0.5) {
+                    const n = splitMate(w.edge, rb.e);
+                    if (n && Math.hypot(x - n.x, z - n.z) < 40 && Math.abs(Y.road + yAlong(rb.e, x, z) - (y0 + y1) / 2) < 1.6) { hit = true; return; }
+                }
                 // narrow separation barriers: only where the lane continues on both sides (a lane merely ending at the line keeps it)
                 if (!pointInPolygon(x + w.nx * 0.9, z + w.nz * 0.9, rb.poly) || !pointInPolygon(x - w.nx * 0.9, z - w.nz * 0.9, rb.poly)) return;
                 // and a car pushed through the gap would really land on a surface at this level (same test as roadHeight)
@@ -339,6 +365,18 @@ export function buildWallsBarriers(ctx) {
                 for (const q of [a, b]) { const w = q.w; if (q.end) { w.bx = mx; w.bz = mz; } else { w.ax = mx; w.az = mz; } w.x = (w.ax + w.bx) / 2; w.z = (w.az + w.bz) / 2; w.r = Math.hypot(w.bx - w.ax, w.bz - w.az) / 2 + .3; q.done = true; }
                 barrierJoins.joined++;
             }
+        }
+        // (owner, 2026-11-15, SeaTac (-953, 995): "missing consistency on borders") what the cuts leave of a drop barrier can be a
+        // piece of 1-2 m that meets no other guard at either end: a lone grey block at a gore nose or beside a garage ramp
+        // (19 of the 112 pieces round the SeaTac terminal drives). An inferred barrier piece under 2.5 m with both ends free
+        // is removed; it guarded nothing a car could not drive round.
+        {
+            const guard = w => w.kind === 'barrier' || w.kind === 'rail' || w.kind === 'guard', gg = new BoxGrid(8);
+            for (const w of walls) if (guard(w)) gg.insert(Math.min(w.ax, w.bx), Math.min(w.az, w.bz), Math.max(w.ax, w.bx), Math.max(w.az, w.bz), w);
+            const meets = (w, x, z) => { let hit = false; gg.each(x - .6, z - .6, x + .6, z + .6, o => { if (!hit && o !== w && distPointSeg(x, z, o.ax, o.az, o.bx, o.bz).d < .6) hit = true; }); return hit; };
+            const lone = new Set(walls.filter(w => w.kind === 'barrier' && w.inferred === true && Math.hypot(w.bx - w.ax, w.bz - w.az) < 2.5 && !meets(w, w.ax, w.az) && !meets(w, w.bx, w.bz)));
+            if (lone.size) { for (let i = walls.length - 1; i >= 0; i--) if (lone.has(walls[i])) walls.splice(i, 1); }
+            barrierJoins.loneDropped = lone.size;
         }
         // These barriers are inferred, not source barrier records. Clip only
         // bounded pieces conflicting with a known source rail's actual fleet.

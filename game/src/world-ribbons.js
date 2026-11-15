@@ -23,18 +23,20 @@ export function buildRibbons(ctx) {
     const pushPad = (n, kind, p) => { let o = padCorners.get(n); if (!o) padCorners.set(n, o = { road: [], side: [], y: 0 }); o[kind].push(p); };
     const markingStations = buildMarkingStations(edges, e => data.roadSourceGeometry?.[e.road]?.sourceId || e.access?.sourceId);
 
+    // off: the line's lateral offset, or a function of the distance along the edge (a line easing to the next edge's offset)
     const dashLine = (mb, e, s0, s1, off, y, col, dash, gap, hw) => {
-        const step = dash + gap;
+        const step = dash + gap, offAt = typeof off === 'function' ? off : () => off;
         const spans = gap > 0 ? markingDashIntervals(s0, s1, dash, gap, markingStations.get(e)) : Array.from({length:Math.ceil((s1-s0)/step)}, (_, i) => [s0+i*step, Math.min(s1,s0+i*step+dash)]);
         for (const [s, sEnd] of spans) {
             if (sEnd - s < 1e-7) continue;
-            let ax = e.a.x + e.dirx * s + e.nx * off, az = e.a.z + e.dirz * s + e.nz * off;
-            let bx = e.a.x + e.dirx * sEnd + e.nx * off, bz = e.a.z + e.dirz * sEnd + e.nz * off;
+            const oa = offAt(s), ob = offAt(sEnd);
+            let ax = e.a.x + e.dirx * s + e.nx * oa, az = e.a.z + e.dirz * s + e.nz * oa;
+            let bx = e.a.x + e.dirx * sEnd + e.nx * ob, bz = e.a.z + e.dirz * sEnd + e.nz * ob;
             // continuous lines follow the mitred strip: at a plain bend (degree-2, no pad) end on the mitre line
             if (gap === 0) {
-                const mit = (n) => !n.pad && n.edges.length === 2 ? corner(e, n, off >= 0 ? 1 : -1, Math.abs(off), () => Math.abs(off)) : null;
-                if (s < 0.05) { const q = mit(e.a); if (q) { ax = q[0]; az = q[1]; } }
-                if (sEnd > e.len - 0.05) { const q = mit(e.b); if (q) { bx = q[0]; bz = q[1]; } }
+                const mit = (n, o) => !n.pad && n.edges.length === 2 ? corner(e, n, o >= 0 ? 1 : -1, Math.abs(o), () => Math.abs(o)) : null;
+                if (s < 0.05) { const q = mit(e.a, oa); if (q) { ax = q[0]; az = q[1]; } }
+                if (sEnd > e.len - 0.05) { const q = mit(e.b, ob); if (q) { bx = q[0]; bz = q[1]; } }
             }
             mb.flatQuad(ax + e.nx * hw, az + e.nz * hw, bx + e.nx * hw, bz + e.nz * hw, bx - e.nx * hw, bz - e.nz * hw, ax - e.nx * hw, az - e.nz * hw, y, col, 0);
         }

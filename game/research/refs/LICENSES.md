@@ -1,14 +1,22 @@
 # Reference image licences
 
-Free-licensed reference photos used while modelling (Wikimedia Commons and similar; spec 20). The image files stay on
-the researcher's machine (`.gitignore` excludes images under `game/research/refs/`), except the eight Matei Basarab /
-Parfumului photos tracked in `refs/unirii/`; this list records each one's author, licence and source page, by folder.
-Textures the game uses are copied into game assets explicitly with their own attribution. A "taken" / "date" cell of
-"—" means the date was not recorded.
+Free-licensed reference photos used while modelling (spec 20), listed by folder with author, licence and source page.
+The image files stay on the researcher's machine (`.gitignore` excludes images under `game/research/refs/`), except the
+eight Matei Basarab / Parfumului photos tracked in `refs/unirii/`. Textures the game uses are copied into game assets
+explicitly with their own attribution.
+
+- All files come from Wikimedia Commons under free licences (CC BY, CC BY-SA, CC0, public domain), downscaled from the
+  Commons thumbnails (≤ 1280 px, ≤ 400 KB, re-encoded as JPEG; no other changes).
+- **Attribution is required** for CC BY / CC BY-SA files wherever a photo or a texture derived from it is shown:
+  "Author, licence, via Wikimedia Commons" with the link.
+- "Texture" / ★ marks a facade or material texture candidate: a frontal photo of a single building (check the
+  perspective first); never an artwork.
+- **Romania has no freedom of panorama**: photos of buildings whose architect died less than 70 years ago (Palace of the
+  Parliament, Arcul de Triumf, People's Salvation Cathedral, Cărturești Carusel interior 2015, Royal Palace 1937 façade,
+  Memorial of Rebirth) are reference only, never textures.
+- A "taken" / "date" cell of "—" means the date was not recorded.
 
 ## `refs/bellevue/`
-
-Free-licensed images from Wikimedia Commons only, downscaled to Commons standard thumbnail widths (≤ 400 KB each). Each row: file · what it shows / what it is used for · author · licence · source page. **Attribution is required** for CC BY / CC BY-SA files (credit "Author, licence, via Wikimedia Commons" wherever a photo or a texture derived from it is shown). "Texture?" marks facade/material texture candidates.
 
 | file | shows / used for | author | licence | texture? | source |
 |---|---|---|---|---|---|
@@ -32,32 +40,7 @@ Free-licensed images from Wikimedia Commons only, downscaled to Commons standard
 | `Plaza_Center_Bellevue_WA.jpg` | Plaza Center 10900 NE 8th (UiPath 2018–2025), Oct 2026 — facade, 10900 pylon, NE 8th median | SuddenFrost | CC0 | Plaza Center piers/glass | [File:Plaza Center, Bellevue, WA.jpg](https://commons.wikimedia.org/wiki/File:Plaza_Center,_Bellevue,_WA.jpg) |
 | `Seattle_-_Portal_to_the_Pacific_01.jpg` | 1940 tunnel portal with 'SEATTLE PORTAL TO THE PACIFIC' relief | Joe Mabel | CC BY-SA 3.0 | portal concrete relief | [File:Seattle - Portal to the Pacific 01.jpg](https://commons.wikimedia.org/wiki/File:Seattle_-_Portal_to_the_Pacific_01.jpg) |
 
-19 files.
-
-## `refs/buc-spots/`
-
-Free-licensed images from Wikimedia Commons, resized to <=1280 px and <=400 KB for modelling reference. Attribution is required for CC BY / CC BY-SA images if any are ever shipped (e.g. as textures). **Romania has no freedom of panorama**: photos of buildings whose architect died less than 70 years ago (Palace of the Parliament, Arcul de Triumf, People's Salvation Cathedral, Cărturești Carusel interior 2015, Royal Palace 1937 façade, Memorial of Rebirth) are reference-only, never textures.
-
-Per-file attribution is in the sections below.
-
-| spot | images | facade-texture candidates |
-|---|---|---|
-| palace-parliament | 10 | 0 |
-| old-town-lipscani | 13 | 7 |
-| stavropoleos-cec | 13 | 7 |
-| athenaeum-revolution | 11 | 6 |
-| arcul-de-triumf | 7 | 0 |
-| village-museum | 11 | 9 |
-| herastrau-park | 7 | 1 |
-| spring-palace | 7 | 0 |
-| cismigiu | 10 | 1 |
-| peoples-salvation-cathedral | 6 | 0 |
-
-Total: 95 images.
-
 ## `refs/buc-spots/arcul-de-triumf/`
-
-Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Commons thumbnail; no other changes. "Texture" = facade-texture candidate.
 
 > Copyright note: Arch by Petre Antonescu (d. 1965) - in copyright until 2035 and Romania has no freedom of panorama: reference only.
 
@@ -72,8 +55,6 @@ Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Comm
 | `drapel-arcul-de-triumf.jpg` | [Drapel Arcul de Triumf.jpg](https://commons.wikimedia.org/wiki/File:Drapel_Arcul_de_Triumf.jpg) | Alstyle | [CC BY-SA 3.0 ro](https://creativecommons.org/licenses/by-sa/3.0/ro/) | no | Flag on the arch (National Day) |
 
 ## `refs/buc-spots/athenaeum-revolution/`
-
-Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Commons thumbnail; no other changes. "Texture" = facade-texture candidate.
 
 | file | title (Commons) | author | licence | texture | note |
 |---|---|---|---|---|---|
@@ -91,8 +72,6 @@ Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Comm
 
 ## `refs/buc-spots/cismigiu/`
 
-Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Commons thumbnail; no other changes. "Texture" = facade-texture candidate.
-
 | file | title (Commons) | author | licence | texture | note |
 |---|---|---|---|---|---|
 | `cismigiu-rowboats.jpg` | [Cismigiu - rowboats.jpg](https://commons.wikimedia.org/wiki/File:Cismigiu_-_rowboats.jpg) | Joe Mabel | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) | no | Lake with rowing boats |
@@ -108,8 +87,6 @@ Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Comm
 
 ## `refs/buc-spots/herastrau-park/`
 
-Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Commons thumbnail; no other changes. "Texture" = facade-texture candidate.
-
 | file | title (Commons) | author | licence | texture | note |
 |---|---|---|---|---|---|
 | `gradina-japoneza-herastrau-01.jpg` | [Gradina Japoneza, Herastrau 01.jpg](https://commons.wikimedia.org/wiki/File:Gradina_Japoneza,_Herastrau_01.jpg) | Nicubunu | [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/) | yes | Japanese garden |
@@ -121,8 +98,6 @@ Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Comm
 | `bucuresti-romania-parcul-herastrau-aleea-cu-statui-b-ii-a-a-18802.jpg` | [Bucuresti, Romania, Parcul Herastrau (Aleea cu statui); B-II-a-A-18802.JPG](https://commons.wikimedia.org/wiki/File:Bucuresti,_Romania,_Parcul_Herastrau_(Aleea_cu_statui);_B-II-a-A-18802.JPG) | Britchi Mirela | [CC BY-SA 3.0 ro](https://creativecommons.org/licenses/by-sa/3.0/ro/) | no | Alley with statues |
 
 ## `refs/buc-spots/old-town-lipscani/`
-
-Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Commons thumbnail; no other changes. "Texture" = facade-texture candidate.
 
 | file | title (Commons) | author | licence | texture | note |
 |---|---|---|---|---|---|
@@ -142,8 +117,6 @@ Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Comm
 
 ## `refs/buc-spots/palace-parliament/`
 
-Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Commons thumbnail; no other changes. "Texture" = facade-texture candidate.
-
 > Copyright note: Palace of the Parliament (architect Anca Petrescu, d. 2013; heirs claim royalties): reference only, never as texture.
 
 | file | title (Commons) | author | licence | texture | note |
@@ -161,8 +134,6 @@ Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Comm
 
 ## `refs/buc-spots/peoples-salvation-cathedral/`
 
-Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Commons thumbnail; no other changes. "Texture" = facade-texture candidate.
-
 > Copyright note: Recent architecture (2010-2025): reference only.
 
 | file | title (Commons) | author | licence | texture | note |
@@ -175,8 +146,6 @@ Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Comm
 | `catedrala-mntuirii-neamului-bucureti-profil-fa-nlime.jpg` | [Catedrala Mântuirii Neamului, București (profil față - înălțime).jpg](https://commons.wikimedia.org/wiki/File:Catedrala_M%C3%A2ntuirii_Neamului,_Bucure%C8%99ti_(profil_fa%C8%9B%C4%83_-_%C3%AEn%C4%83l%C8%9Bime).jpg) | MIHAIL | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | no | Elevation profile drawing |
 
 ## `refs/buc-spots/spring-palace/`
-
-Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Commons thumbnail; no other changes. "Texture" = facade-texture candidate.
 
 > Copyright note: 1964-65 villa (architect's death date unverified): reference only until cleared.
 
@@ -191,8 +160,6 @@ Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Comm
 | `20180411-135853-april-2018-in-bucharest.jpg` | [20180411 135853 April 2018 in Bucharest.jpg](https://commons.wikimedia.org/wiki/File:20180411_135853_April_2018_in_Bucharest.jpg) | Rakoon | [CC0](https://creativecommons.org/publicdomain/zero/1.0/) | no | Spring Palace exterior (CC0) |
 
 ## `refs/buc-spots/stavropoleos-cec/`
-
-Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Commons thumbnail; no other changes. "Texture" = facade-texture candidate.
 
 | file | title (Commons) | author | licence | texture | note |
 |---|---|---|---|---|---|
@@ -212,8 +179,6 @@ Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Comm
 
 ## `refs/buc-spots/village-museum/`
 
-Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Commons thumbnail; no other changes. "Texture" = facade-texture candidate.
-
 | file | title (Commons) | author | licence | texture | note |
 |---|---|---|---|---|---|
 | `2023-biserica-de-lemn-din-dragomireti-maramure-1722-img-00.jpg` | [(2023) Biserica de lemn din Dragomirești, Maramureș, 1722 - img 00.jpg](https://commons.wikimedia.org/wiki/File:(2023)_Biserica_de_lemn_din_Dragomire%C8%99ti,_Maramure%C8%99,_1722_-_img_00.jpg) | Chainwit. | [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) | yes | Dragomirești wooden church |
@@ -230,8 +195,6 @@ Source: Wikimedia Commons. Files resized/re-encoded (JPEG) from the 1280 px Comm
 
 ## `refs/floreasca/`
 
-Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downscaled thumbnails ≤ 400 KB, fetched 2026-11-06/07 via Commons geosearch around the chapter route. Attribution as required by each licence (author + licence + link). **Facade-texture candidate** = frontal photo of a single building titled by its address (verify perspective before using as a texture).
-
 | file | taken | near | author | licence | Commons page | facade-texture candidate |
 |---|---|---|---|---|---|---|
 | View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg | — | Sky Tower (36 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:View_from_Sky_Tower_level_35_to_the_North-West_of_Bucharest_-_panoramio.jpg |  |
@@ -243,8 +206,6 @@ Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downs
 | Terasa_Promenada_Mall_-_panoramio.jpg | — | Sky Tower (23 m) | Marius-Ionut | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:Terasa_Promenada_Mall_-_panoramio.jpg |  |
 
 ## `refs/grozavesti/`
-
-Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downscaled thumbnails ≤ 400 KB, fetched 2026-11-06/07 via Commons geosearch around the chapter route. Attribution as required by each licence (author + licence + link). **Facade-texture candidate** = frontal photo of a single building titled by its address (verify perspective before using as a texture).
 
 | file | taken | near | author | licence | Commons page | facade-texture candidate |
 |---|---|---|---|---|---|---|
@@ -259,8 +220,6 @@ Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downs
 | RO_B_Politehnica_university_rectorate.jpg | 2004-03-20 | Politehnica campus (68 m) | Andrei Stroe | CC BY-SA 3.0 | https://commons.wikimedia.org/wiki/File:RO_B_Politehnica_university_rectorate.jpg |  |
 
 ## `refs/otopeni/`
-
-Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downscaled thumbnails ≤ 400 KB, fetched 2026-11-06/07 via Commons geosearch around the chapter route. Attribution as required by each licence (author + licence + link). **Facade-texture candidate** = frontal photo of a single building titled by its address (verify perspective before using as a texture).
 
 | file | taken | near | author | licence | Commons page | facade-texture candidate |
 |---|---|---|---|---|---|---|
@@ -278,8 +237,6 @@ Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downs
 
 ## `refs/pipera/`
 
-Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downscaled thumbnails ≤ 400 KB, fetched 2026-11-06/07 via Commons geosearch around the chapter route. Attribution as required by each licence (author + licence + link). **Facade-texture candidate** = frontal photo of a single building titled by its address (verify perspective before using as a texture).
-
 | file | taken | near | author | licence | Commons page | facade-texture candidate |
 |---|---|---|---|---|---|---|
 | Sky_Tower_level_35_Floreasca_Lake_-_panoramio.jpg | — | Pipera bridge / Barbu Văcărescu (160 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Sky_Tower_(level_35)_Floreasca_Lake_-_panoramio.jpg |  |
@@ -292,8 +249,6 @@ Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downs
 | Sector_2_Bucharest_Romania_-_panoramio_3_.jpg | — | Pipera bridge / Barbu Văcărescu (68 m) | Cretzu Blogaretzu | CC BY 3.0 | https://commons.wikimedia.org/wiki/File:Sector_2,_Bucharest,_Romania_-_panoramio_(3).jpg |  |
 
 ## `refs/romana/`
-
-Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downscaled thumbnails ≤ 400 KB, fetched 2026-11-06/07 via Commons geosearch around the chapter route. Attribution as required by each licence (author + licence + link). **Facade-texture candidate** = frontal photo of a single building titled by its address (verify perspective before using as a texture).
 
 | file | taken | near | author | licence | Commons page | facade-texture candidate |
 |---|---|---|---|---|---|---|
@@ -332,24 +287,9 @@ Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downs
 
 ## `refs/sea-spots/`
 
-Wikimedia Commons, free licences only (CC BY / CC BY-SA / CC0 / Public domain). Resized to ≤1280 px, ≤400 KB JPEG (modified from the originals). Attribution per file in the sections below. Facade-texture candidates marked ★ (buildings only — never artworks).
-
-| Spot | Images |
-|---|---|
-| fremont-troll | 6 |
-| pike-place | 20 |
-| space-needle | 9 |
-| chihuly | 6 |
-| mopop | 6 |
-| kerry-park | 6 |
-| waterfront | 7 |
-| pioneer-square | 3 |
-
 Ballard Locks, Gas Works and the four Bellevue spots have no reference photos.
 
 ## `refs/sea-spots/chihuly/`
-
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
 
 | File | Author | Licence | Commons page | Date | Size |
 |---|---|---|---|---|---|
@@ -362,8 +302,6 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 
 ## `refs/sea-spots/fremont-troll/`
 
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
-
 | File | Author | Licence | Commons page | Date | Size |
 |---|---|---|---|---|---|
 | `Fremont_troll.jpg` | Sambusak74 | CC BY-SA 4.0 | [File:Fremont troll.jpg](https://commons.wikimedia.org/wiki/File:Fremont_troll.jpg) | 2026-08-26 | 302 KB |
@@ -374,8 +312,6 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 | `Fremont_Troll_plaque.jpg` | Kingofthedead | CC BY-SA 4.0 | [File:Fremont Troll plaque.jpg](https://commons.wikimedia.org/wiki/File:Fremont_Troll_plaque.jpg) | 2016-03-21 | 354 KB |
 
 ## `refs/sea-spots/kerry-park/`
-
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
 
 | File | Author | Licence | Commons page | Date | Size |
 |---|---|---|---|---|---|
@@ -388,8 +324,6 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 
 ## `refs/sea-spots/mopop/`
 
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
-
 | File | Author | Licence | Commons page | Date | Size |
 |---|---|---|---|---|---|
 | `Museum_of_Pop_Culture_Seattle_Washington1.jpg` | Burley Packwood | CC BY-SA 4.0 | [File:Museum of Pop Culture Seattle Washington1.jpg](https://commons.wikimedia.org/wiki/File:Museum_of_Pop_Culture_Seattle_Washington1.jpg) | 2018-07-29 | 278 KB |
@@ -400,8 +334,6 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 | `Museum_of_Pop_Culture_in_Seattle_6248401525_.jpg` | Guilhem Vellut from Annecy, France | CC BY 2.0 | [File:Museum of Pop Culture in Seattle (6248401525).jpg](https://commons.wikimedia.org/wiki/File:Museum_of_Pop_Culture_in_Seattle_(6248401525).jpg) | 2011-10-04 | 126 KB |
 
 ## `refs/sea-spots/pike-place/`
-
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
 
 | File | Author | Licence | Commons page | Date | Size |
 |---|---|---|---|---|---|
@@ -428,8 +360,6 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 
 ## `refs/sea-spots/pioneer-square/`
 
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
-
 | File | Author | Licence | Commons page | Date | Size |
 |---|---|---|---|---|---|
 | `Seattle_-_Pioneer_Square_Pergola_-_2020-04-24.jpg` | Joe Mabel | CC BY-SA 4.0 | [File:Seattle - Pioneer Square Pergola - 2020-04-24.jpg](https://commons.wikimedia.org/wiki/File:Seattle_-_Pioneer_Square_Pergola_-_2020-04-24.jpg) | — | 370 KB |
@@ -437,8 +367,6 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 | `Pioneer_Square_Pergola_detail_01.jpg` | Joe Mabel | CC BY-SA 3.0 | [File:Pioneer Square Pergola detail 01.jpg](https://commons.wikimedia.org/wiki/File:Pioneer_Square_Pergola_detail_01.jpg) | 2007-09-24 | 284 KB |
 
 ## `refs/sea-spots/space-needle/`
-
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
 
 | File | Author | Licence | Commons page | Date | Size |
 |---|---|---|---|---|---|
@@ -454,8 +382,6 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 
 ## `refs/sea-spots/waterfront/`
 
-Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded as JPEG ≤400 KB. ★ = facade-texture candidate.
-
 | File | Author | Licence | Commons page | Date | Size |
 |---|---|---|---|---|---|
 | `Seattle_Great_Wheel_Ferris_Wheel.jpg` | Dacomet | CC BY-SA 4.0 | [File:Seattle Great Wheel Ferris Wheel.jpg](https://commons.wikimedia.org/wiki/File:Seattle_Great_Wheel_Ferris_Wheel.jpg) | 2015-06-12 | 155 KB |
@@ -468,9 +394,8 @@ Source: Wikimedia Commons (fetched 2026-11-06). Thumbnails ≤1280 px re-encoded
 
 ## `refs/seatac/`
 
-No image files exist for this area (Commons rate-limited the download). The rows record the free-licensed photos that
-were selected and licence-checked through the Commons API, with the attribution any use of them requires (CC BY /
-CC BY-SA: author, licence, link).
+No image files were downloaded for this folder; the rows record the selected, licence-checked photos and the attribution
+any use of them requires.
 
 | Commons file | author | licence | date | page |
 |---|---|---|---|---|
@@ -487,8 +412,6 @@ CC BY-SA: author, licence, link).
 | Sea-tac terminal map.png | PerryPlanet | CC0 | 2014-12-18 | [https://commons.wikimedia.org/wiki/File:Sea-tac_terminal_map.png](https://commons.wikimedia.org/wiki/File:Sea-tac_terminal_map.png) |
 
 ## `refs/unirii/`
-
-Free-licensed Wikimedia Commons images only (CC BY / CC BY-SA / CC0 / PD), downscaled thumbnails ≤ 400 KB, fetched 2026-11-06/07 via Commons geosearch around the chapter route. Attribution as required by each licence (author + licence + link). **Facade-texture candidate** = frontal photo of a single building titled by its address (verify perspective before using as a texture).
 
 | file | taken | near | author | licence | Commons page | facade-texture candidate |
 |---|---|---|---|---|---|---|

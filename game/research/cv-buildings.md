@@ -1,6 +1,10 @@
 # CV-stop buildings and CV room windows
 
-Machine-readable twins: `cv-buildings.json` (building facts, research 2026-11-07) and `cv-window-bindings.json` (room → source building, the 15 source parts with outer / hole rings and facade edges, source URLs, response dates, SHA256; research 2026-11-09). Sources: OSM tiles of 2026-11-06 (tags; footprints measured from the outlines), the district dossiers (`bucharest-*.json` stops), Wikimedia Commons photos (reference only, licences listed below). No free Commons photo exists of BOB Tower, Hermes, Europe House, The Landmark (2017 buildings) or the Rosetti school (searched 2026-11-07), so their facades are rated medium / low below.
+Machine-readable twins: `cv-buildings.json` (building facts) and `cv-window-bindings.json` (room → source building, the
+15 source parts with outer / hole rings and facade edges, source URLs, response dates, SHA256). Sources: OSM tags and
+footprints, the district dossiers (`bucharest-*.json` stops), Wikimedia Commons photos (reference only, licences listed
+below). Commons has no free photo of BOB Tower, Hermes, Europe House, The Landmark or the Rosetti school, so their
+facades are rated medium / low below.
 
 ## GTS Global Intelligence — Calea Călărașilor 101
 OSM w245117704 · 44.433492, 26.117628 · building facts high (OSM + 2023 photos), GTS occupancy medium. Modelled by `bGTS` in `game/src/landmarks/bucharest-districts.js`.
@@ -10,7 +14,7 @@ OSM w245117704 · 44.433492, 26.117628 · building facts high (OSM + 2023 photos
 - Facade: warm off-white render (≈ #E6DCCD) with rustication grooves, grey rendered plinth with spalled patches; three tall round-arched windows on the street front (white frames, fanlights) under stucco laurel-garland arches with scroll keystones, a baluster panel under each; modillion cornice with a garland-and-ribbon frieze; rounded street corner with a narrow arched window.
 - Roof: weathered grey zinc mansard, round-arched dormer, framed œil-de-bœuf vents, grey downpipes.
 - Entrance not on the street: a black wrought-iron double gate on the WEST side opens onto a paved courtyard drive; white panelled double door (glazed, transom) on the long west facade up three stone steps, iron lantern, thuja in a lawn strip. The destination beacon belongs at the gate.
-- Signage: only small company plaques on the door jamb (2023 photo, one "BYG") and a small board on the fence; 2013 had a red "DE ÎNCHIRIAT" banner and a "GENERALI" banner. The game shows a plaque only, no billboard (owner's choice).
+- Signage: only small company plaques on the door jamb (2023 photo, one "BYG") and a small board on the fence; the game shows a plaque only, no billboard (owner's choice).
 - Neighbours: west, behind the gate, a white 6–7-storey block with glass balconies (built by 2023); east, a two-storey eclectic house (red standing-seam roof, dormers, red awnings), then no. 105 (1936, 6 storeys, w245117686, LMI B-II-m-B-18381); Hala Traian (no. 133) ≈ 240 m east.
 - Occupancy: GTS at no. 101 comes from a group-level job listing (medium); the trade-register seat is Str. Frunzei 26, and GTS later moved to Hermes Business Campus (`bucharest-unirii.json` stops.gts).
 - Photos: [101 Calea Călărașilor (01)](https://commons.wikimedia.org/wiki/File:101_Calea_Călărașilor,_Bucharest_(01).jpg) (west facade, entrance, mansard), [(02)](https://commons.wikimedia.org/wiki/File:101_Calea_Călărașilor,_Bucharest_(02).jpg) (window bay detail), [(03)](https://commons.wikimedia.org/wiki/File:101_Calea_Călărașilor,_Bucharest_(03).jpg) (street front, neighbours), all 2023, Neoclassicism Enthusiast, CC BY-SA 4.0; [Calarasi 101.jpg](https://commons.wikimedia.org/wiki/File:Calarasi_101.jpg), 2013-09-18, Nicubunu, CC BY-SA 3.0 RO.

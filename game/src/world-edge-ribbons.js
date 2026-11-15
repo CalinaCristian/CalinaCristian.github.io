@@ -218,11 +218,16 @@ export function buildEdgeRibbons(ctx) {
             } else if (!e.tunnel && e.len > 8) {
                 const pr = makeRng(e.id * 7919 + 101), per = US ? 90 : minor ? 22 : 34;
                 const n = Math.floor((s1 - s0) / per + pr());
+                const laid = []; // (owner, 2026-11-15, Grozăvești (495, -653): "a dark sliver strip" — two patches laid end to end / over
+                //                  each other read as one long dark strip; a patch overlapping or within 0.5 m of one already laid on this
+                //                  edge is left out. Its random draws are still taken, so every other patch keeps its place.)
                 for (let q = 0; q < n; q++) {
                     const L = pr.range(1.2, US ? 4 : 7), sa = pr.range(s0 + 0.5, Math.max(s0 + 0.6, s1 - L - 0.5));
                     const wR2 = e.wR - 0.3, wL2 = -(e.wL - 0.3); if (wR2 - wL2 < 2) break;
                     const W = Math.min(wR2 - wL2, pr.range(0.9, e.laneW * 1.1)), o = pr.range(wL2, wR2 - W);
                     const pc = shadeRgb(asphaltBase, US ? 0.72 : pr.chance(0.6) ? 0.74 : 1.12);
+                    if (laid.some(p => sa < p[1] + 0.5 && sa + L > p[0] - 0.5 && o < p[3] + 0.5 && o + W > p[2] - 0.5)) continue;
+                    laid.push([sa, sa + L, o, o + W]);
                     band(m, e, sa, sa + L, o, o + W, yM - 0.0095 + Math.min(q, 9) * 0.0007 + (e.id % 3) * 0.0002, pc); // (owner register #3, Floreasca: overlapping patches at one height flickered: each its own height, all below the lines)
                 }
             }

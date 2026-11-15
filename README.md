@@ -45,10 +45,10 @@ that chapter tells its part of the CV.
   Needle–Chihuly visit (Seattle); Meydenbauer and Downtown Park (Bellevue). Each has chatting crowds (Romanian lines
   with English underneath), info plaques, a spot map with waypoints, a short guided tour (at most three stops /
   300 m, `J` skips a step), a postcard challenge and activities, for example: the Freddo club dance, coffee,
-  papanași, a busker, a photo walk and karaoke in Old Town (each at a real place, only while it is open); table
-  (Romanian backgammon) against a park regular, rowing and bike rental in Cișmigiu; an island race and a baguette
-  catch at the Arc; the Space Needle elevator and catching a fish at Pike Place. Activities need participation;
-  pausing or leaving cancels them. The older 24-spot catalogue stays in saves; retired visits do not count.
+  papanași, a busker and karaoke in Old Town (each at a real place, only while it is open); table (Romanian
+  backgammon) against a park regular, rowing and bike rental in Cișmigiu; an island race and pétanque at the Arc; the
+  Space Needle elevator and catching a fish at Pike Place; kayak, paddleboard and stone skipping at Meydenbauer.
+  Activities need participation; pausing or leaving cancels them. The older 24-spot catalogue stays in saves; retired visits do not count.
 - **A living city.** Country-specific traffic (taxis, vans, police; STB trams, trolleybuses and buses; King County
   Metro) on real lanes, one-ways, turn lanes, signals and speed limits; density by hour and rush-hour standstills at
   real hotspots (Piața Victoriei, Piața Unirii, Bd. Dimitrie Pompeiu, I-405); trams on their mapped rails and stops;
@@ -66,8 +66,8 @@ that chapter tells its part of the CV.
   against OSM and, where a panorama exists, compared by eye with Street View; what is still estimated or wrong is in
   [`handoffs/fidelity/BACKLOG.md`](handoffs/fidelity/BACKLOG.md) and the district dossiers in `game/research/`.
 - **Saves, achievements, completion %.** Progress, position and photos persist in IndexedDB; **Continue** resumes
-  where you left off. 129 achievements (story, exploration, driving, local colour, activities, photography, walking,
-  secrets); only those for available destinations and current activities count toward the weighted completion %.
+  where you left off. Achievements cover story, exploration, driving, local colour, activities, photography, walking and
+  secrets; only those for available destinations and current activities count toward the weighted completion %.
 - **Performance.** Adaptive quality tiers, instancing and culling keep every district and tourist frame within
   1.5 M triangles / 400 draw calls, including traffic and the mirror. The instrument cluster and nav screen stay sharp
   at every tier.
@@ -97,8 +97,8 @@ Developer pages: `game/dev/spots.html?id=<spot>`, `game/dev/landmarks.html`, `ga
 `game/dev/crowd.html`.
 
 ## Tests and QA
-- `node --test game/dev/*.test.mjs game/dev/harness/*.test.mjs` — unit and regression tests.
-- `node --input-type=module --check < game/src/<file>.js` — syntax check of an edited module.
+The checks to run before pushing (unit tests, syntax check, harness, audits, frame budget) are listed once, in
+[`AGENTS.md`](AGENTS.md) → "Checks before you push". The tools:
 - `npm run harness` — logic harness (Playwright + software GL): drives the chapters, on foot, rush hour and the
   finale, and checks placement, routing, overlaps and page errors. `npm run harness:audit` runs the static road audit
   only. Usage and scenarios: [`game/dev/harness/README.md`](game/dev/harness/README.md).
@@ -117,10 +117,9 @@ Requirements, architecture and the definition of done are in [`specs/`](specs/);
 [`handoffs/fidelity/BACKLOG.md`](handoffs/fidelity/BACKLOG.md).
 
 ## Publishing
-GitHub Pages serves `master`. Before deploying runtime changes, commit them, run
-`node tools/telemetry/stamp-release.mjs --write` (or `--source=<commit>` for a commit with identical runtime bytes),
-commit the release metadata and verify with the same command without `--write`. Large internal evidence folders stay
-in Git but are excluded from the deploy in `_config.yml`.
+GitHub Pages serves `master`. Runtime changes need a release stamp:
+[`tools/telemetry/README.md`](tools/telemetry/README.md) → "Release identity". Dev tools, research, specs and large
+evidence folders stay in Git but are excluded from the deploy in `_config.yml`.
 
 ## Data, credits and privacy
 - Map data © [OpenStreetMap](https://www.openstreetmap.org/copyright) contributors (ODbL), built offline by

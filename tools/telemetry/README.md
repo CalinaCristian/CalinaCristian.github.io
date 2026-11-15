@@ -13,7 +13,8 @@ node tools/telemetry/stamp-release.mjs --write
 node tools/telemetry/stamp-release.mjs
 ```
 
-Commit the generated `game/release.json` and both HTML meta tags. Runtime file hashes, excluding those meta lines, form `release_id`. The source commit identifies the committed code that was stamped. A later runtime change requires a new stamp. There is no production build step.
+The first command writes (`--source=<commit>` stamps a commit with identical runtime bytes instead of HEAD), the second
+verifies. Commit the generated `game/release.json` and both HTML meta tags. Runtime file hashes, excluding those meta lines, form `release_id`. The source commit identifies the committed code that was stamped. A later runtime change requires a new stamp. There is no production build step.
 
 ## Dashboards as code
 

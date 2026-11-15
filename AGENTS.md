@@ -23,8 +23,11 @@ something the next agent needs, add it here (imperative) or in the relevant spec
 - Fixes go straight to `master`, no PR unless asked (owner rule): run the checks below, `git fetch origin master`,
   merge it (keep both sides), then push. The owner and other agents push to `master` too, so fetch and merge again right
   before each push.
-- Runtime changes also need the release stamp (`node tools/telemetry/stamp-release.mjs --write`, see README.md →
-  Publishing).
+- Runtime changes also need the release stamp (`node tools/telemetry/stamp-release.mjs --write`, see
+  [`tools/telemetry/README.md`](tools/telemetry/README.md) → "Release identity").
+- Commits: author and committer `Cristian Calina <cristycalina@gmail.com>`, no Claude / Co-Authored-By / session lines in
+  messages. One scoped commit per area of change (squash fixups locally); push once per finished batch, not after every
+  step; no side branches left on the remote.
 - Keep the owner posted with short updates while long jobs run.
 
 ## Checks before you push (look at the pictures — numbers alone have missed real breakage)
@@ -46,6 +49,9 @@ something the next agent needs, add it here (imperative) or in the relevant spec
 - **README.md reflects the current game**: a change that adds, removes or changes a player-facing feature, control,
   district / landmark, dev tool or data source / credit updates README.md (and the relevant spec) in the same commit.
   Remove text that is no longer true; history lives in git, not in the docs.
+- Docs hold only what is true now: specs the requirements, READMEs how to run and check, `game/research/` dossiers the
+  sources, measurements, estimates and documented exceptions to OSM. No review logs, dated passes, "round N" / "fixed
+  in" notes or finished findings; state one fact in one place and link to it.
 - `handoffs/fidelity/` holds BACKLOG.md plus only the evidence that game code, tools, tests or the overview read (for
   example `d-otopeni/terminal-roof-measurements.json`); delete an evidence folder once nothing reads it.
 - **Keep the published overview (`/game/overview/`) current.** A change that affects it updates the affected prose,
@@ -101,7 +107,7 @@ something the next agent needs, add it here (imperative) or in the relevant spec
   metal roofs can read as flat to the classifier.
 - Preserve OSM parking location and orientation (`data.parking`); diagonal bays are not parallel sidewalk parking.
 - Panorama metadata has no altitude: comparison poses keep their source road level; overlapping levels stay flagged in
-  `camera-poses.json`.
+  the `camera-poses.json` that `viewpoints.js` writes.
 - `buildWorld` ordering: never use a variable before it is defined (`data` is loaded after `distId`), and never call a
   `const` helper from code that runs earlier (signs run inside the building loop): use a hoisted function declaration.
   Either breaks the boot.

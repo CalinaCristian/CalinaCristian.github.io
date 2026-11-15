@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-1fb29c659ba38846",
-  "sourceCommit": "1daacdc917e4dfc42b5a4c267ebef7f5b35448b5",
-  "fingerprint": "1fb29c659ba388463f4e9e9fbf49474c751ec6bc17fda8bd38e00bae0a8a8d38",
+  "releaseId": "game-668d2cbe4dc95d9f",
+  "sourceCommit": "5cd6640cde296515e4f825e39efa7894b7261a74",
+  "fingerprint": "668d2cbe4dc95d9f7a2143071e8c83ce3025d7c1d26f0f857d02cbc6dfe19228",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -422,11 +422,11 @@
     },
     {
       "path": "game/src/crowd.js",
-      "sha256": "1e3cd9407ef55d2848a8d773925fc86bda48149cd440dac5d0a30f43cc7d7bcd"
+      "sha256": "471a54082ee62d412cb118f1ce1ac1e2ccef9f1e751180c7bdf246a06dc90a6b"
     },
     {
       "path": "game/src/data.js",
-      "sha256": "8067d01b60580019bcf3e0df7521173792dae8f3199ebfcfa0806bff8140673d"
+      "sha256": "8755b85dacaeb22ae8392c42431918ad7023bf6cfd61d2cd998d2a5aa85fb3eb"
     },
     {
       "path": "game/src/deck-lamps.js",
@@ -1205,6 +1205,10 @@
       "sha256": "17b2db9288d133fb2575409f0a81725a39caa9cefea6ed2272fa083c446245b8"
     },
     {
+      "path": "game/src/spots/fish-toss.js",
+      "sha256": "f78a75bd0ea9dbeced419563bee2967b8732eef7c5e830a51e0b72620af5bb38"
+    },
+    {
       "path": "game/src/spots/frame-budget.js",
       "sha256": "19290adc381a3a2fb1104fb736a15ac5b06bc517d58a436d413271a3c538eac9"
     },
@@ -1262,7 +1266,7 @@
     },
     {
       "path": "game/src/spots/people.js",
-      "sha256": "3b50b096ca4ef83b6ba6d531815816832544c12799e812e8fe5322ccc2ae38ac"
+      "sha256": "7bf7876606fe2ce74ab367786312cc3f8eef17149cab899b335f36830adc4b0e"
     },
     {
       "path": "game/src/spots/petanque.js",
@@ -1453,12 +1457,20 @@
       "sha256": "54eaf5efff8d3afc94d1c4e4d2d558d169132a95b108d32aa47db651703bd81a"
     },
     {
+      "path": "game/src/spots/scenes/pike-place-fish.js",
+      "sha256": "f42b22456e07da3cfde6d8b89f7eb78ab9a280c8a94964c1f0053408056b46a7"
+    },
+    {
+      "path": "game/src/spots/scenes/pike-place-floors.js",
+      "sha256": "2f401ceff30cf9cab50f1e5231db0cc4481a1710ccf15bad0c006970732e4c9c"
+    },
+    {
       "path": "game/src/spots/scenes/pike-place-lower.js",
       "sha256": "d2bc49e8ccd41fc355ff12f12c5a7ebdc31f4ae294e46c8a632a240391c183c5"
     },
     {
       "path": "game/src/spots/scenes/pike-place-market.js",
-      "sha256": "83ea6c0727991be913d8ed34cc117ccfa6a869fc2185ffd9b85b0a8c125a5ae6"
+      "sha256": "dec6c2a6b6d8ce57f2cd235be2f34a3d57e76fd5d5d3a5281edc78076bf1bfec"
     },
     {
       "path": "game/src/spots/scenes/pike-place-shops.js",
@@ -1470,7 +1482,7 @@
     },
     {
       "path": "game/src/spots/scenes/pike-place-streets.js",
-      "sha256": "e103347e5f8ce3ef509832e04e6ab20434805a266448a81352b12374f7b464f0"
+      "sha256": "35a54a7b648b8e157e26df17a61dccf76957c0bd77123485e78407df28e12be3"
     },
     {
       "path": "game/src/spots/scenes/pike-place-westface.js",
@@ -1478,7 +1490,7 @@
     },
     {
       "path": "game/src/spots/scenes/pike-place.js",
-      "sha256": "6f81cac184c0a239fc6e0399c4324057c1d53ef4c1ebd1d31548c3d5be90ef19"
+      "sha256": "9baf0bc3c676a4dd5aac71f6a7a1390142201445504d491bd04ec2b58274a0da"
     },
     {
       "path": "game/src/spots/scenes/pike-starbucks.js",
@@ -1510,7 +1522,7 @@
     },
     {
       "path": "game/src/spots/scenes/sea-common.js",
-      "sha256": "7250552321dbcbdd2e7eb5dea5253bfca8d5e0e13283fa4c65a0923e801c7181"
+      "sha256": "37485d41d54301a3c3488da7ce31df5a05aa29793ff81327c1fdf6fed8d6816d"
     },
     {
       "path": "game/src/spots/scenes/sea-models.js",
@@ -1618,7 +1630,7 @@
     },
     {
       "path": "game/src/spots/space-needle.js",
-      "sha256": "e4a2a00c2d576c8f90b3e146a7acbaf50f637f405cf894c2b88b3dcfcc26ceb3"
+      "sha256": "9b29db2eda31e0b0a145d04f61fbff3ccc8f22885a85f46fc8c4373f479e1407"
     },
     {
       "path": "game/src/spots/spot-bikes.js",

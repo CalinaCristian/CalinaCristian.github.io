@@ -5,7 +5,8 @@
 //  balustraded terrace, the pool wing (OSM ways 549676146 / 549676153, museum
 //  grounds 38236017), granite plinth + black wrought-iron fence on the
 //  boulevard, rose beds, and the peacocks in the garden (they fan their tails
-//  now and then — photograph one for the bonus). Quiet villa / embassy street.
+//  now and then — photograph one for the bonus; or creep up on one until it
+//  does: spring-peacock.js). Quiet villa / embassy street.
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, obb, polyArea, offsetPolyline } from '../kit.js';
@@ -17,12 +18,13 @@ import { addTraffic } from '../cars.js';
 import { unHouse } from './nth-un-house.js';
 import { osmBarriers } from '../buc-barriers.js';
 import { osmPlaces } from '../buc-places.js';
+import { springPeacock } from './spring-peacock.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 function hipRoof(b, poly, y, h, col, over = 1.0) { const o = obb(poly); if (!o) return; const g = new THREE.CylinderGeometry(Math.SQRT1_2 * 0.3, Math.SQRT1_2, 1, 4).rotateY(Math.PI / 4); b.add(g, 'roofs', M(o.cx, y + h / 2, o.cz, 0, -o.angle, 0, o.len + over * 2, h, o.wid + over * 2), col); g.dispose(); }
 
 /** peacocks: walk in the garden, sometimes fan their tails (instanced-free: a few small meshes) */
-function peacocks(ctx, area, n = 4) {
+function peacocks(ctx, area, n = 4, ok = (x, z) => inPoly(x, z, area)) { // ok: on the lawn and clear of the buildings
     const r = rng(23), birds = [], grp = new THREE.Group(); grp.name = 'peacocks';
     const blue = new THREE.MeshStandardMaterial({ color: '#1f4f8a', roughness: 0.4, metalness: 0.3 }), green = new THREE.MeshStandardMaterial({ color: '#2f6b4a', roughness: 0.5, metalness: 0.2 });
     const fanTex = (() => { const c = document.createElement('canvas'); c.width = 256; c.height = 128; const x = c.getContext('2d'); x.fillStyle = '#2f6b4a'; x.beginPath(); x.arc(128, 128, 126, Math.PI, 0); x.fill(); for (let i = 0; i < 70; i++) { const a = Math.PI + r() * Math.PI, rr = 40 + r() * 80; const px = 128 + Math.cos(a) * rr, py = 128 + Math.sin(a) * rr; x.fillStyle = '#c9a24e'; x.beginPath(); x.ellipse(px, py, 7, 9, a, 0, 7); x.fill(); x.fillStyle = '#1f4f8a'; x.beginPath(); x.ellipse(px, py, 4, 5, a, 0, 7); x.fill(); x.fillStyle = '#111'; x.beginPath(); x.arc(px, py, 1.8, 0, 7); x.fill(); } const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace; return t; })();
@@ -33,23 +35,26 @@ function peacocks(ctx, area, n = 4) {
         const legM = new THREE.MeshStandardMaterial({ color: '#8a7a6a' }), brown = new THREE.MeshStandardMaterial({ color: '#6a5236', roughness: 0.7 });
         const body = new THREE.Mesh(new THREE.SphereGeometry(0.2, 10, 8), blue); body.scale.set(0.9, 1.0, 1.45); body.position.y = 0.62; body.rotation.x = -0.25; g.add(body);
         const wing = new THREE.Mesh(new THREE.SphereGeometry(0.19, 8, 6), brown); wing.scale.set(1.0, 0.75, 1.3); wing.position.set(0, 0.64, -0.06); g.add(wing);
-        const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.075, 0.42, 8), blue); neck.position.set(0, 0.92, 0.2); neck.rotation.x = 0.28; g.add(neck);
-        const head = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 6), blue); head.scale.set(0.85, 1, 1.25); head.position.set(0, 1.15, 0.27); g.add(head);
-        const beak = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.07, 5), legM); beak.rotation.x = Math.PI / 2; beak.position.set(0, 1.14, 0.36); g.add(beak);
-        for (let k = -2; k <= 2; k++) { const c = new THREE.Mesh(new THREE.CylinderGeometry(0.004, 0.004, 0.09, 3), blue); c.position.set(k * 0.012, 1.24, 0.25); c.rotation.z = k * 0.15; g.add(c); const t = new THREE.Mesh(new THREE.SphereGeometry(0.012, 4, 3), blue); t.position.set(k * 0.019, 1.29, 0.25); g.add(t); }
+        // neck, head, beak and crest hang from a pivot at the neck's base: it dips to feed (the stalk game, peacock-stalk.js)
+        const nk = new THREE.Group(); nk.position.set(0, 0.72, 0.16); g.add(nk); const N0 = nk.position;
+        const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.075, 0.42, 8), blue); neck.position.set(0, 0.92 - N0.y, 0.2 - N0.z); neck.rotation.x = 0.28; nk.add(neck);
+        const head = new THREE.Mesh(new THREE.SphereGeometry(0.06, 8, 6), blue); head.scale.set(0.85, 1, 1.25); head.position.set(0, 1.15 - N0.y, 0.27 - N0.z); nk.add(head);
+        const beak = new THREE.Mesh(new THREE.ConeGeometry(0.018, 0.07, 5), legM); beak.rotation.x = Math.PI / 2; beak.position.set(0, 1.14 - N0.y, 0.36 - N0.z); nk.add(beak);
+        for (let k = -2; k <= 2; k++) { const c = new THREE.Mesh(new THREE.CylinderGeometry(0.004, 0.004, 0.09, 3), blue); c.position.set(k * 0.012, 1.24 - N0.y, 0.25 - N0.z); c.rotation.z = k * 0.15; nk.add(c); const t = new THREE.Mesh(new THREE.SphereGeometry(0.012, 4, 3), blue); t.position.set(k * 0.019, 1.29 - N0.y, 0.25 - N0.z); nk.add(t); }
         const trainG = new THREE.SphereGeometry(0.5, 12, 6); trainG.scale(0.34, 0.07, 1.3); const train = new THREE.Mesh(trainG, green); train.position.set(0, 0.36, -0.95); train.rotation.x = 0.22; g.add(train);
         const legs = []; for (const s of [-1, 1]) { const leg = new THREE.Mesh(new THREE.CylinderGeometry(0.014, 0.014, 0.46, 4), legM); leg.geometry.translate(0, -0.23, 0); leg.position.set(s * 0.07, 0.48, 0.02); g.add(leg); legs.push(leg); }
         const fan = new THREE.Mesh(new THREE.PlaneGeometry(2.2, 1.1), fanMat); fan.position.set(0, 0.62, -0.32); fan.rotation.x = -0.18; fan.visible = false; g.add(fan);
-        let x = 0, z = 0; for (let k = 0; k < 30; k++) { x = bb.x0 + r() * (bb.x1 - bb.x0); z = bb.z0 + r() * (bb.z1 - bb.z0); if (inPoly(x, z, area)) break; }
+        let x = 0, z = 0; for (let k = 0; k < 30; k++) { x = bb.x0 + r() * (bb.x1 - bb.x0); z = bb.z0 + r() * (bb.z1 - bb.z0); if (ok(x, z)) break; }
         g.position.set(x, ctx.ground.heightAt(x, z), z); grp.add(g);
-        birds.push({ g, fan, train, legs, x, z, tx: x, tz: z, wait: r() * 4, show: 0, yaw: r() * 6.28, ph: r() * 6 });
+        birds.push({ g, fan, train, legs, neck: nk, x, z, tx: x, tz: z, wait: r() * 4, show: 0, yaw: r() * 6.28, ph: r() * 6, held: false });
     }
     ctx.add(grp);
     ctx.onUpdate((dt) => {
         for (const b of birds) {
+            if (b.held) continue; // (the stalk game drives this one)
             if (b.show > 0) { b.show -= dt; b.fan.visible = b.show > 0; b.train.visible = !b.fan.visible; continue; }
             b.wait -= dt;
-            if (b.wait <= 0) { b.wait = 3 + r() * 6; if (r() < 0.25) { b.show = 6 + r() * 6; b.fan.visible = true; continue; } for (let k = 0; k < 10; k++) { const nx = b.x + (r() - 0.5) * 10, nz = b.z + (r() - 0.5) * 10; if (inPoly(nx, nz, area)) { b.tx = nx; b.tz = nz; break; } } }
+            if (b.wait <= 0) { b.wait = 3 + r() * 6; if (r() < 0.25) { b.show = 6 + r() * 6; b.fan.visible = true; continue; } for (let k = 0; k < 10; k++) { const nx = b.x + (r() - 0.5) * 10, nz = b.z + (r() - 0.5) * 10; if (ok(nx, nz)) { b.tx = nx; b.tz = nz; break; } } }
             const dx = b.tx - b.x, dz = b.tz - b.z, L = Math.hypot(dx, dz);
             let walk = 0; if (L > 0.1) { const v = Math.min(L, dt * 0.6); b.x += dx / L * v; b.z += dz / L * v; b.yaw = Math.atan2(dx, dz); walk = 1; }
             b.ph += dt * 7 * walk; b.legs[0].rotation.x = Math.sin(b.ph) * 0.45 * walk; b.legs[1].rotation.x = -Math.sin(b.ph) * 0.45 * walk;
@@ -125,7 +130,13 @@ export default {
         ctx.extras.springContext = { removedUnverifiedCityFiller: true };
         // peacocks on the lawn
         const lawn = grow(grounds, -4);
-        const birds = peacocks(ctx, lawn, 4);
+        // (2026-11-15) the birds keep off the buildings' footprints (they walked through the residence)
+        const onLawn = (x, z) => inPoly(x, z, lawn) && !d.buildings.some((q) => { const bb = polyBox(q.poly); return x > bb.x0 - 1.5 && x < bb.x1 + 1.5 && z > bb.z0 - 1.5 && z < bb.z1 + 1.5 && (inPoly(x, z, q.poly) || [[1.5, 0], [-1.5, 0], [0, 1.5], [0, -1.5]].some(([u, v]) => inPoly(x + u, z + v, q.poly))); });
+        const birds = peacocks(ctx, lawn, 4, onLawn);
+        // (owner 2026-11-15: real activities) creep up on a peacock until it fans its tail (spring-peacock.js); the E point is
+        // on the lawn a few metres in from the gate
+        { const [cx, cz] = centroid(grounds), L = Math.hypot(cx - gmx, cz - gmz), ux = (cx - gmx) / L, uz = (cz - gmz) / L; let t = 0; while (t < L && !inPoly(gmx + ux * t, gmz + uz * t, lawn)) t += 0.5;
+            springPeacock(ctx, { birds, free: onLawn, at: { x: gmx + ux * (t + 2.5), z: gmz + uz * (t + 2.5) } }); }
         // plaques by the gate (inside), traffic on the boulevard
         const PL = sp.plaques; const ix = gmx + (centroid(grounds)[0] - gmx) * 0.18, iz = gmz + (centroid(grounds)[1] - gmz) * 0.18;
         PL.forEach((pl, i) => ctx.plaque(pl, ix + gux * (i - 1.5) * 2.2, iz + guz * (i - 1.5) * 2.2, Math.atan2(gmx - ix, gmz - iz), { style: 'city' }));

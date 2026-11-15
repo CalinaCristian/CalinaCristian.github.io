@@ -6,8 +6,8 @@
 //  Round 5 (spots-bel): garden rooms placed from the OSM survey (Perennial
 //  Border, Yao Garden + gate + koi pond, ponds, Tateuchi pavilion, the Shorts
 //  Visitor Center / Aaron Education Center building), Garden d'Lights holiday
-//  lights (late Nov – Dec 31, night), activities: cross the ravine bridge,
-//  read five plant labels (note 57).
+//  lights (late Nov – Dec 31, night). Activity (2026-11-15): the Garden d'Lights
+//  critter hunt (bel-dlights-hunt.js); the bridge walk and trail notes are not offered.
 //  ESTIMATE ON RECORD (owner decision, round 3 of the 2026-11 fidelity pass):
 //  the parked cars in the visitor lot (OSM amenity=parking r19655198) are
 //  kept but are an estimate — OSM maps the lot and its aisles, not its bays or
@@ -22,6 +22,7 @@ import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, alongPolyline, polylineLength, lerp, smooth, inPoly, polyBox, distPolyline } from '../kit.js';
 import { signBoard } from '../props.js';
 import { activityBlocked, onActivityCancel } from '../participation.js';
+import { gardenDLightsHunt } from './bel-dlights-hunt.js';
 import { makeWaterMaterial } from '../../water.js';
 import { addTraffic } from '../cars.js';
 import { emitActivity, seasonal, waterPoly, fairyLights, gableRoof, tri, glowText, nightLit, parkPavilions, pitchMarkings, ringPrism } from './bel-common.js';
@@ -280,6 +281,8 @@ export default {
             fairyLights(ctx, pts.slice(0, half), { color: '#ff7ab8', size: 0.2, on: () => on, name: 'garden-dlights-a' }); fairyLights(ctx, pts.slice(half), { color: '#8fd3ff', size: 0.2, on: () => on, name: 'garden-dlights-b' });
             fairyLights(ctx, lanterns, { color: '#ffd38a', size: 0.5, twinkle: 0.05, name: 'yao-lanterns' }); }
         // ---------------------------------------------------------------- activities (note 57)
+        // (owner 2026-11-15: real activities) the Garden d'Lights critter hunt, in season after dark (bel-dlights-hunt.js)
+        gardenDLightsHunt(ctx);
         // 1) cross the ravine suspension bridge (end to end)
         let crossing = null, crossed = false;
         onActivityCancel(ctx, () => { crossing = null; });

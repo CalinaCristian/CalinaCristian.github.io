@@ -43,6 +43,12 @@ export function gated(spec, title, start) {
 export function hoursLabel(spec, label) {
     return (s) => (openNow(spec, s) ? label : `${label} (${spec.season && !spec.season(s) ? 'out of season' : 'open ' + hoursText(spec)})`);
 }
+/** an hours-gated activity point (it: { kind, x, z, r, title, label, start(s), cond? }): the label names the hours while closed, the
+ *  map lists it under "Opens later" and the tour skips it then, and E says when it opens (any city: the spot's own time zone) */
+export function timedActivity(ctx, spec, it) {
+    const item = { tourActivityIds: [it.kind], ...it, label: hoursLabel(spec, it.label), tourAvailable: (s) => openNow(spec, s), use: gated(spec, it.title, it.start) };
+    ctx.interactables.push(item); return item;
+}
 /** the season the player picked in the conditions panel (null = from the date) */
 export const seasonPicked = (s) => s?.r3d?._seasonOverride || null;
 /** the season in force (picked, or from the date) */

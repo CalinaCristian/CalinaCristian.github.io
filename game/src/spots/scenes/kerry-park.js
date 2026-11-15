@@ -11,6 +11,7 @@
 //  Round 5 rebuild (note 58): real terrain beyond the DEM (sea-common
 //  seaHeight), no box backdrop in the sightline, 3-D towers with the façade
 //  shader, the city ground + Queen Anne / Uptown blocks + trees, the bay.
+//  Activity (2026-11-15): basketball on the lower park's court (kerry-hoops.js).
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, smooth, lerp, headingFromBearing, inPoly, distSeg } from '../kit.js';
@@ -19,6 +20,7 @@ import { bench } from '../osm.js';
 import { addTraffic } from '../cars.js';
 import { seaBackdrop, seaHeight, seaActivity } from './sea-common.js';
 import { photoHunt } from '../photo-hunt.js';
+import { kerryHoops } from './kerry-hoops.js';
 
 /**
  * Changing Form (Doris Totten Chase; OSM n693337510, Seattle Office of Arts & Culture GCK74.048): "a square frame with
@@ -157,6 +159,8 @@ export default {
                 { x: 24, z: 7.3, r: 0.2, n: 1, act: 'sit', look: [24, 20], personas: ['local'] },
             ],
         };
+        // ---- the activity (owner 2026-11-15: real activities, not the view): basketball on the lower park's court (kerry-hoops.js)
+        kerryHoops(ctx);
         ctx.sound('wind', 10, 5, 80, 1); ctx.sound('crows', -40, 40, 120, 1); ctx.sound('traffic', 0, 200, 400, 0.4);
         ctx.spawns['kerry-park'] = { x: 2, z: 4.5, heading: headingFromBearing(141) };
         ctx.extras.seaBackdrop = bd;

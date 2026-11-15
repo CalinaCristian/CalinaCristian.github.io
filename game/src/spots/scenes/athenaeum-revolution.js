@@ -9,6 +9,7 @@
 //  1989 balcony, and the Memorial of Rebirth (2005: white marble pillar through
 //  a dark "crown") on its granite plaza with the backless benches. All modelled
 //  (no photo textures); artists credited on the plaques.
+//  Activity (2026-11-15): the evening concert in the Great Hall (athenaeum-concert.js).
 // ============================================================================
 import * as THREE from '../../../vendor/three.module.min.js';
 import { GeoBatch, M, rng, headingFromBearing, centroid, polyBox, inPoly, offsetPolyline, polyArea, obb } from '../kit.js';
@@ -19,6 +20,7 @@ import { addTraffic } from '../cars.js';
 import { mappedTreeSizes, poiSigns, bust, standingFigure } from '../buc-streetscape.js';
 import { aisleParking } from './ctr-parking.js';
 import { osmBarriers } from '../buc-barriers.js';
+import { athenaeumConcert } from './athenaeum-concert.js';
 
 function grow(poly, d) { const cw = polyArea(poly) > 0; const o = offsetPolyline([...poly, poly[0], poly[1]], cw ? -d : d); return o.slice(1, poly.length + 1); }
 const local = (lm, x, z) => { const c = Math.cos(lm.lm.rotation), s = Math.sin(lm.lm.rotation); return { x: lm.x + x * c + z * s, z: lm.z - x * s + z * c }; };
@@ -238,6 +240,8 @@ export default {
                 { label: 'The ribbed dome', ...dome, y: AT.y + 27.7 + 10 * (41-27.7)/(47.4-27.7), radius: 1.6, surfaceTolerance: 2 },
             ], onDone: s => bucActivity(s, 'athenaeum-revolution', 'concert-hall', '📷 Athenaeum details', 'You framed the Ionic portico, inscription and dome from the garden.') });
         }
+        // (owner 2026-11-15: real activities) the evening concert in the Great Hall, entered at the portico (athenaeum-concert.js)
+        if (AT) { const dp = local(AT, 35, 0); athenaeumConcert(ctx, { door: { ...dp, y: g.heightAt(dp.x, dp.z), heading: Math.atan2(-(dp.x - AT.x), -(dp.z - AT.z)) } }); }
         if (balcony) ctx.interactables.push({ kind: 'viewpoint', x: balcony.x, z: balcony.z, r: 4, label: 'Stand below the balcony (21 December 1989)', use: (s) => { s.ui.toast('21 December 1989', 'Ceaușescu\'s last speech from this balcony was booed by the crowd; he fled by helicopter from the roof the next day.'); s.sound.play('crowd', 0.6); } });
         // postcard: from the garden in front of the portico, looking back at the portico and the dome (the research point
         // lies at the building's south side; the portico faces the garden / Calea Victoriei)

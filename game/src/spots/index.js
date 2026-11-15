@@ -82,6 +82,9 @@ export const ACTIVITIES = [
     // Bellevue parks (2026-11-15, bel-park-activities.js): the pier and loop walks retired (spot-availability.js)
     ['bel-downtown-park', 'frisbee', 'Play frisbee on the lawn'], ['bel-downtown-park', 'swing', 'Pump a swing sky-high'], ['bel-downtown-park', 'skate', 'Skate the seasonal ice rink'],
     ['bel-meydenbauer', 'sup', 'Paddleboard round the pier buoys'], ['bel-meydenbauer', 'swim', 'Swim to the float and back'], ['bel-meydenbauer', 'skip', 'Skip stones across the bay'],
+    // the spots that had nothing to do (2026-11-15): one activity each, open by the in-game hour
+    ['kerry-park', 'hoops', 'Shoot hoops below Kerry Park'], ['athenaeum-revolution', 'concert', 'Applaud at an Athenaeum concert'], ['spring-palace', 'peacock', 'Creep up on a peacock'],
+    ['bel-botanical-garden', 'dlights-hunt', 'Hunt the Garden d’Lights critters'], ['bel-lincoln-square', 'bowling', 'Bowl at Lucky Strike'], ['pioneer-square', 'ping-pong', 'Ping pong in Occidental Square'],
 ].map(([spot, id, title]) => ({ spot, id, title }));
 /**
  * READY retains historical side-by-side review records. MENU_AVAILABLE separately

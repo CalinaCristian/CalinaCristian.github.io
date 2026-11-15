@@ -309,11 +309,14 @@ export class Harness {
             const ox = e.nx * dir * off, oz = e.nz * dir * off;
             segs.push([P[i][0] + ox, P[i][1] + oz, P[i + 1][0] + ox, P[i + 1][1] + oz, L[i]]);
         }
+        // each leg keeps its own lane line to the node; a short connector crosses the junction to the next leg's lane.
+        // (A single blended point per node pulled the whole previous leg toward the next lane: before a sharp left at
+        // Piața Victoriei the line ran 2 m past the kerb into a bus-stop sign 19 m ahead of the junction.)
         const pts = [[segs[0][0], segs[0][1]]], legOf = [];
         for (let i = 0; i < segs.length; i++) {
             const s = segs[i], n = segs[i + 1];
-            if (n) pts.push([(s[2] + n[0]) / 2, (s[3] + n[1]) / 2]); else pts.push([s[2], s[3]]);
-            legOf.push(s[4]);
+            pts.push([s[2], s[3]]); legOf.push(s[4]);
+            if (n && Math.hypot(n[0] - s[2], n[1] - s[3]) > 0.5) { pts.push([n[0], n[1]]); legOf.push(n[4]); }
         }
         const cum = [0]; for (let i = 1; i < pts.length; i++) cum.push(cum[i - 1] + Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]));
         return { pts, cum, legOf, total: cum[cum.length - 1] };

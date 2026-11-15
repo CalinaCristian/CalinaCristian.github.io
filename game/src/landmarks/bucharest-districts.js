@@ -346,35 +346,50 @@ export function bPolitehnica(b) {
 // (w583612401, 7 levels) is left to the generic OSM buildings. Class-A offices: light stone / fibre-cement panels #D8D3C8 with regular vertical window bands, dark grey
 // aluminium frames #3C3F42, glass #6F8A94, glazed ground floor with cafés (Ted's Coffee, Friddi), recessed top floor.
 // Vasile Alecsandri is one-way southbound; the UiPath door is on its east side (west face of Corp B, ≈ 44.4499, 26.0944).
-// Height: 7 levels ≈ 26 m (research table). No published exterior tenant signage -> street number only.
+// Height: OSM 29.4 m (ground + 4 stone storeys + a glass storey + a set-back two-storey glass box, listing photos 2026-11-15);
+// the UiPath logo stands on the glass box's top edge (listing photos).
 // Src: game/research/bucharest-romana.json/.md (uipath-buc, w546500235 row) ; OSM w546500235 / w583612401
 export function bTheLandmark(b) {
     // (round 5) news photo of the campus (economica.net; viewed only, not kept): Corp B = four storeys of light-stone grid
     // with deep window reveals, topped by a cantilevered three-storey glass box with dark horizontal bands and a rooftop
     // metal mesh screen; glazed ground floor; landscaped courtyard with a pool between the blocks.
     const ps = P2.thelandmark.map(pts), ST = '#ddd6c8', FR = '#3c3f42', GL = '#6f8a94';
-    // (round 2, panoramas at 44.450288, 26.094312 heading 143 and 44.449916, 26.094312 heading 66, viewed only): the
-    // Vasile Alecsandri fronts are limestone to the top of the fifth upper storey, tall windows in deep reveals between
-    // stone piers on every storey, a glazed ground floor BETWEEN the same piers, and one set-back glazed storey under the
-    // roof screen. The model had its windows 0.25 m inside the wall (invisible: a blank stone block), a glass skirt
-    // standing proud of the wall and three glass storeys. Storey heights stay estimates (OSM: 7 levels).
-    const stoneTop = 4.2 + 5 * 3.75;
+    // (round 2, panoramas at 44.450288, 26.094312 heading 143 and 44.449916, 26.094312 heading 66, viewed only): limestone
+    // fronts with tall windows in deep reveals between stone piers on every storey, a glazed ground floor BETWEEN the same piers.
+    // (2026-11-15, owner: "is this how uipath building looks in real life? looks weird to me": a pale grid under a black glass
+    // storey and a grey slab on the roof) the leasing listing's drone photos (spatii-de-birouri.ro/en/bucharest-the-landmark,
+    // viewed only, not kept; levels "3S+P+6+7T", completed 2016) show Corp B as the round-5 photo had it: a white stone block of
+    // ground + 4 storeys, then a glass storey over the whole footprint (dark floor band, a glass balustrade round its roof
+    // terrace), then a two-storey glass box set back from the street fronts behind planted terraces, light reflective glass in
+    // a fine mullion grid, the red UiPath logo on its top edge. There is no grey mesh screen (was a 2.8 m grey ring, read as a
+    // slab). Storey heights are estimates within OSM's 29.4 m; the set-back (3 m) and logo sizes are estimates.
+    const stoneTop = 4.2 + 4 * 3.6, glassTop = stoneTop + 3.6, top = 29.4;
     for (const p of ps) {
         b.prism(p, 0, stoneTop, ST, { topCol: '#cfc8ba' });
         b.windows(p, 0, 4.2, 4.2, '#5f7780', { bay: 5.2, wf: 0.8, hf: 0.82, start: 0.15, mat: 'g', minL: 3, off: 0.06 });   // glazed ground floor between the piers
-        b.windows(p, 4.2, stoneTop, 3.75, '#4a575e', { bay: 2.6, wf: 0.56, hf: 0.74, start: 0.5, mat: 'g', minL: 3, off: 0.06 });
+        b.windows(p, 4.2, stoneTop, 3.6, '#4a575e', { bay: 2.6, wf: 0.56, hf: 0.74, start: 0.45, mat: 'g', minL: 3, off: 0.06 });
         b.pilasters(p, 0, stoneTop, 5.2, 0.6, 0.3, ST, {});
         b.cornice(p, 4.2, 0.3, 0.2, ST); b.cornice(p, stoneTop - 0.3, 0.3, 0.25, ST);
-        const top = offset(p, -1.2);                                                           // set-back glazed top storey
-        curtainTower(b, top, stoneTop, 26.6, { glass: GL, spandrel: '#2f3438', mullion: '#8d9599', pitch: 1.5, mw: 0.08, md: 0.1, fh: 3.65, frac: 0.78, start: 0.3 });
-        const sc = offset(p, -1.5); b.ring(sc, 26.6, 29.4, '#6c7175'); b.ring(offset(sc, -0.1), 26.6, 29.4, '#6c7175', { inward: true });   // rooftop mesh screen
+        // glass storey over the whole footprint, its roof a terrace behind a glass balustrade
+        curtainTower(b, p, stoneTop, glassTop, { glass: GL, spandrel: '#3e474d', mullion: '#a9b0b3', top: '#a8aaa6', pitch: 1.5, mw: 0.07, md: 0.1, fh: 3.6, frac: 0.8, start: 0.35 });
+        b.ring(offset(p, -0.1), glassTop, glassTop + 1.1, '#9fb4bd', { mat: 'g' });
+        b.ring(offset(p, -0.15), glassTop, glassTop + 1.1, '#9fb4bd', { mat: 'g', inward: true });
+        // two-storey glass box set back from the fronts
+        const box = offset(p, -3);
+        curtainTower(b, box, glassTop, top, { glass: '#88a2ae', spandrel: '#7f8f97', mullion: '#3c3f42', top: '#5d6266', pitch: 1.5, mw: 0.07, md: 0.1, fh: 3.6, frac: 0.8, start: 0.35 });
+        // UiPath logo on the box's top edge, to Vasile Alecsandri (west) and to the north
+        const bx0 = Math.min(...box.map(q => q[0])), bz0 = Math.min(...box.map(q => q[1]));
+        for (const [x, z, ry] of [[bx0 - 0.25, -6, -Math.PI / 2], [-6, bz0 - 0.25, Math.PI]]) {
+            b.box(x, top - 1.9, z, 4.6, 1.6, 0.12, '#fa4616', { ry, mat: 'e' });
+            b.text('UIPATH', x, top - 1.55, z, ry, 0.9, '#ffffff', { mat: 'e' });
+        }
     }
     // UiPath door on Vasile Alecsandri (west face of Corp B at the address point 44.4499, 26.0944): canopy + street number
     const dz = 12.4;
     b.box(-21.2, 4.4, dz, 3.4, 0.3, 6, FR); b.box(-19.6, 0, dz, 0.2, 3, 2.4, '#8fa3ad', { mat: 'g' });
     b.text('4', -19.82, 3.3, dz + 2.3, -Math.PI / 2, 0.8, '#f2f2f2');
     entrance(b, { x: -19.5, z: dz, nx: -1, nz: 0 }, { w: 2.2, h: 3, plate: { w: 0.6, h: 0.42, y: 1.3, side: 1, bg: '#ffffff', lines: [['UIPATH', 0.12, '#fa4616'], ['THE LANDMARK', 0.045, '#3c3f42']] } });
-    for (const q of ps) b.colPolygon(q, { y1: 26.6 });
+    for (const q of ps) b.colPolygon(q, { y1: 29.4 });
 }
 
 // Europe House (Bd. Lascăr Catargiu 47-53, 2001-02, CA Immo) — Arnia Software's office (2019 CV stop): one of

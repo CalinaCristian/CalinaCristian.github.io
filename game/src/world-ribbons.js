@@ -23,7 +23,19 @@ export function buildRibbons(ctx) {
     const pushPad = (n, kind, p) => { let o = padCorners.get(n); if (!o) padCorners.set(n, o = { road: [], side: [], y: 0 }); o[kind].push(p); };
     const markingStations = buildMarkingStations(edges, e => data.roadSourceGeometry?.[e.road]?.sourceId || e.access?.sourceId);
 
+    // off: the line's offset from the centre line, or (a ramp taper, world.js rampTapers: the lanes widen with the kerb) a
+    // function of the distance along the edge; a dash then runs straight from its start offset to its end offset
     const dashLine = (mb, e, s0, s1, off, y, col, dash, gap, hw) => {
+        if (typeof off === 'function') {
+            const offAt = off, spans = gap > 0 ? markingDashIntervals(s0, s1, dash, gap, markingStations.get(e)) : Array.from({ length: Math.ceil((s1 - s0) / (dash + gap)) }, (_, i) => [s0 + i * (dash + gap), Math.min(s1, s0 + i * (dash + gap) + dash)]);
+            for (const [s, sEnd] of spans) {
+                if (sEnd - s < 1e-7) continue;
+                const oa = offAt(s), ob = offAt(sEnd), P = (q, o) => [e.a.x + e.dirx * q + e.nx * o, e.a.z + e.dirz * q + e.nz * o];
+                const A = P(s, oa + hw), B = P(sEnd, ob + hw), C = P(sEnd, ob - hw), D = P(s, oa - hw);
+                mb.flatQuad(A[0], A[1], B[0], B[1], C[0], C[1], D[0], D[1], y, col, 0);
+            }
+            return;
+        }
         const step = dash + gap;
         const spans = gap > 0 ? markingDashIntervals(s0, s1, dash, gap, markingStations.get(e)) : Array.from({length:Math.ceil((s1-s0)/step)}, (_, i) => [s0+i*step, Math.min(s1,s0+i*step+dash)]);
         for (const [s, sEnd] of spans) {

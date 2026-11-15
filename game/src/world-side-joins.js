@@ -14,7 +14,7 @@ import { BoxGrid, Y, convexHull, shoulderOf } from './world-shared.js';
 export function buildSideJoins(ctx) {
     const {
         ASPHALT, DY_SIDE, SIDE_BACK, US, asphaltCorners, bridgeJunctionAudit, bridgeJunctionDecks, cellOf,
-        cornerGrid, cornerPolys, cornerSkips, coveredByOther, data, edgeGrid, edges, kerbCol,
+        cornerGrid, cornerPolys, cornerSkips, coveredByOther, data, distCfg, edgeGrid, edges, kerbCol,
         layerY, padAsphalt, padCorners, padHeightAt, pierColl, pierSpots, polyDist, railRoadside,
         raised, raisedEdge, retainedDeck, ribbons, sceneryDeckGrid, sharedPadSurfaces, sideCol, sideExtra,
         sideJoins, widthAsphalt, widthSide, yAlong,
@@ -244,11 +244,18 @@ export function buildSideJoins(ctx) {
     // (owner, 2026-11-13, SeaTac: "bridges with borders that don't connect properly", Bellevue: "fences do not connect")
     // the per-edge railings left the same gaps and stray pieces at every other interchange: every raised bridge
     // carriageway of every district now takes the one guard rule (the outline of the union of the raised carriageways).
+    // (owner, 2026-11-15, SeaTac: "all teh briges are broken there") the airport's ramps leave and reach their bridges on
+    // raised ways OSM does not tag as bridges (Exit → Return To Terminal 3.5 m up where Ramp w31928842's bridge begins, the
+    // Airport Expressway ramps 4.5-5.5 m up): the railing ended where the bridge tag did, 26 of the 34 open ends round the
+    // terminal drives, and the raised fill beyond had a bare retaining wall. A district with `embankGuards` (cities.js) takes
+    // every raised carriageway on fill into the same guard (raisedDeck.embankment: the guard completion in world-facades-guards.js).
+    const embankGuards = !!distCfg?.embankGuards;
     let raisedDeckSet = null;
     const raisedDeck = e => {
-        if (!raisedDeckSet) raisedDeckSet = new Set(edges.filter(f => basarabEdge(data, f) || (f.bridge && !f.virtual && !f.tunnel && Math.max(f.ya, f.yb) > .3)));
+        if (!raisedDeckSet) raisedDeckSet = new Set(edges.filter(f => basarabEdge(data, f) || (f.bridge && !f.virtual && !f.tunnel && Math.max(f.ya, f.yb) > .3) || (embankGuards && !f.bridge && !f.virtual && !f.tunnel && Math.max(f.ya, f.yb) > .3)));
         return raisedDeckSet.has(e);
     };
+    raisedDeck.embankment = e => embankGuards && !e.bridge && raisedDeck(e);
     const medianFill = { quads: 0, areaM2: 0, decks: [] }, medianGrid = new BoxGrid(32);
     {
         const GAP = BENT_MODEL.joinGapM, LEVEL = BENT_MODEL.levelToleranceM, grass = rgb('#5d7a3c'), conc = rgb('#9a978f'), dark = rgb('#55524d');

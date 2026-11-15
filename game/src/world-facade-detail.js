@@ -26,7 +26,7 @@ export async function buildFacadeDetail(ctx) {
         ASPHALT, DY_SIDE, LANDMARKS, US, areas, asphaltCorners, bGrid, bRecs,
         basarabBlue, bridgeJunctionDecks, buildPool, builderEpoch, buildingAt, buildingIndex, carParkOutlines, cellOf,
         cells, city, clipBuildingDetails, convexRing, country, coveredByOther, coveredOutlines, data,
-        distId, edgeGrid, edges, edgesInBox, floatingSupport, fountainBasinColl, group, inDistrictLL,
+        distCfg, distId, edgeGrid, edges, edgesInBox, floatingSupport, fountainBasinColl, group, inDistrictLL,
         insetRing, isPark, isWater, landmarkFences, landmarks, lazyRoofMesh, liftOnSide, lmGroup,
         medianFill, medianGrid, nearestEdge, obbPoly, onRibbon, padHeightAt, pasajPortals, pasajStats,
         pierColl, pois, polyDist, polyOnRibbon, raised, raisedDeck, raisedTop, retainedDeck,
@@ -42,7 +42,7 @@ export async function buildFacadeDetail(ctx) {
     } = await buildFacadesGuards({
         ASPHALT, LANDMARKS, US, addSignQuad, asphaltCorners, bGrid, bRecs, bridgeJunctionDecks,
         buildingAt, buildingIndex, cellOf, cells, city, country, coveredByOther, coveredOutlines,
-        data, distId, edgeGrid, edges, floatingSupport, group, isWater, landmarks,
+        data, distCfg, distId, edgeGrid, edges, floatingSupport, group, isWater, landmarks,
         lmGroup, medianFill, medianGrid, nearestEdge, onRibbon, padHeightAt, pierColl, pois,
         polyDist, raised, raisedDeck, retainedDeck, sceneryDeckGrid, signMB, signs, surfGrid,
         surfList, surfacesAt, tramDecks, tramGrades, tramPropEnvelope, tramSweep, tramSweepConflicts, trams,
@@ -53,7 +53,7 @@ export async function buildFacadeDetail(ctx) {
         addPropColl, fenceSegs, railingNetwork, reviewedBridgeRailings, treeClear, waterBridgeRailings,
     } = buildRailingNetwork({
         DROP, DY_SIDE, bRecs, basarabBlue, basarabStructure, buildingAt, buildingIndex, cellOf,
-        coveredByOther, data, edgeGrid, edges, fountainBasinColl, ghostRails, group, isWater, landmarkFences,
+        coveredByOther, data, distCfg, edgeGrid, edges, fountainBasinColl, ghostRails, group, isWater, landmarkFences,
         liftOnSide, lmSignColl, nearestEdge, onRibbon, propColl, raisedTop, segsCross, sportsColl,
         str, surfacesAt, tramSweep, walls, widthAsphalt, widthSide, yAlong,
     });

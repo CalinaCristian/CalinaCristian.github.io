@@ -4,7 +4,7 @@
 // ============================================================================
 import { buildBellevueSquare, BELLEVUE_MACYS_SOURCE } from '../landmark-bellevue-square.js';
 import { US_FOOTPRINTS as U, US_SOURCE_TAGS as UT } from '../landmark-us-source.js';
-import { offset, M } from './kit.js';
+import { offset, zAt, M } from './kit.js';
 import { facadeQuad, edgeN, curtainTower } from './parts.js';
 
 // Bellevue Towers (2008) — twin residential towers on a 5-level podium: North 137 m / 43 levels, South 131 m / 42 levels
@@ -100,7 +100,25 @@ export function bLincolnN(b) {
         }
         if (best && best.d < 6) { const { a, c, t, L, n } = best, h = 6 / L, P3 = (k) => [a[0] + (c[0] - a[0]) * k, a[1] + (c[1] - a[1]) * k]; facadeQuad(b, P3(Math.max(0, t - h)), P3(Math.min(1, t + h)), 5.9, 15.2, RED, 'm', n, 0.2); }
     }
-    b.text('LINCOLN SQUARE', -31, 10.2, -87.85, Math.PI, 1.4, '#3a342c');                       // NE 8th St face (north); dark letters on the cream stone
+    // NE 8th St face (north): "LINCOLN SQUARE" on a stone fascia band in the solid wall between the two window rows
+    // (7.78-9.93 and 12.08-14.23 m, from b.bands above). (owner report 2026-11-15, eye (-474.9, 10.5, -332.1) bearing 187:
+    // "I INCOLN SQUARE") the 1.4 m letters were 16.6 m wide on a 16.2 m face: the L stood over the 2 m set-back at x -23 and
+    // the end ran into the rounded corner, and the letters touched both window rows. Now 1.0 m letters (11.9 m) on a 13.4 m
+    // fascia panel centred on the straight face from (-39.3, -87.4) to (-23.1, -87.8) of the podium source outline
+    // w161929514, each letter set in front of the face where it stands (zAt, as the SeaTac terminal sign). The exact place
+    // and size of the real lettering are not confirmed: Street View panoramas XAdv4ZJdi3F5sMFCBdAoGA (NE 8th St, headings
+    // 180-255) and lK7f8aUefijIvAtloF9a_w (Bellevue Way, headings 40-175) show tenant signs on this podium, not the name.
+    {
+        const str = 'LINCOLN SQUARE', h = 1.0, px = h / 7, adv = 6 * px, W = str.length * adv - px, cx = -31.2;
+        const face = x => zAt([pod], x)?.[0], a = [-39.3, -87.4], c = [-23.1, -87.8], ang = -Math.atan2(c[1] - a[1], c[0] - a[0]);
+        const zp = face(cx); if (zp != null) b.box(cx, 10.15, zp - 0.24 - 0.13, W + 1.5, 1.7, 0.26, STONE, { ry: ang });   // fascia panel, in front of the piers
+        [...str].forEach((ch, i) => {
+            if (ch === ' ') return;
+            const xc = cx + W / 2 - i * adv - 2.5 * px, zc = face(xc), za = face(xc - 1), zb = face(xc + 1); if (zc == null || za == null || zb == null) return;
+            const sl = (zb - za) / 2, ry = Math.atan2(sl, -1);
+            b.text(ch, xc, 10.5, zc - 0.5, ry, h, '#3a342c', { d: 0.02 });
+        });
+    }
     // --- Lincoln Square North tower (UiPath): 126 m = lobby + 27 office floors (3.95 m) + recessed top + louvred crown
     curtainTower(b, lsn, 0, 112, { glass: '#7f97ad', spandrel: '#c8ced3', mullion: '#9aa1a6', pitch: 3.1, fh: 3.95, start: 9, frac: 0.6 });
     const lt = offset(lsn, -1.2);
@@ -125,10 +143,19 @@ export function bLincolnN(b) {
     b.box(0, 8.6, 5.25, 9.4, 0.75, 0.3, '#4d5357');                                          // canopy fascia
     b.cyl(0, 0, 0.75, 1.5, 1.5, 3, '#9aa7ae', 10, { mat: 'g' }); b.cyl(0, 3, 0.75, 1.6, 1.6, 0.3, '#3a3f42', 10);   // revolving door
     for (const s of [-1, 1]) b.box(s * 3.2, 0, 0.55, 2.2, 2.9, 0.12, '#adbcc4', { mat: 'g' });          // side doors
-    b.box(-5.8, 0, 3.6, 1.2, 1.5, 0.5, '#c9c2b3');                                          // address plinth
+    // (owner report 2026-11-15, "sign sucks") the stop used to get the generic CV board (navy panel, blurred texture text,
+    // orange stripe) across the lobby glazing and the revolving door. UiPath has no exterior sign here (research §5: none in
+    // open sources; a shared office tower lists its tenants in the lobby), so the model carries the building's own signs:
+    // the name on the canopy fascia, a stone address monument at the sidewalk and a small steel tenant plate on it
+    // (landmarks.js `ownSign`; the stop marker and door mat stay with world-pois.js). Monument size and plate are estimates.
+    b.box(-5.8, 0, 3.6, 2.8, 1.25, 0.5, '#c9c2b3');                                         // address monument
+    b.box(-5.8, 1.25, 3.6, 2.9, 0.06, 0.56, '#b3ab9b');                                     // its cap stone
+    b.box(-5.8, 0.18, 3.87, 1.7, 0.3, 0.03, '#b9bdc0');                                     // brushed-steel tenant plate
     b.pop();
     { const q = EW(0, 5.42); b.text('LINCOLN SQUARE NORTH', q[0], 8.68, q[1], ery, 0.5, '#f4f4f2', { d: 0.02 }); }
-    { const q = EW(-5.8, 3.86); b.text('700', q[0], 0.55, q[1], ery, 0.6, '#2e3338', { d: 0.02 }); }
+    for (const [s, y, h, dz] of [['700', 0.68, 0.42, 3.86], ['BELLEVUE WAY NE', 0.52, 0.11, 3.86], ['UIPATH  SUITE 2000', 0.28, 0.1, 3.9]]) {
+        const q = EW(-5.8, dz); b.text(s, q[0], y, q[1], ery, h, '#2e3338', { d: 0.015 });
+    }
     // --- skybridges (enclosed glass boxes on light-grey steel)
     skybridge(b, [-45.4, -28.1], [-76.1, -20.8], 6.2);                                                // over Bellevue Way to Bellevue Square
     // The landing remains the real Bellevue Square source footprint; do not invent

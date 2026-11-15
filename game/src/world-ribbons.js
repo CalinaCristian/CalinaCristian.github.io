@@ -113,7 +113,9 @@ export function buildRibbons(ctx) {
     //      junction pad (hull of the incoming ribbon corners), so pass 2 can keep kerbs / markings off any OTHER
     //      surface (dual carriageways that touch, slip lanes, pads): one visible surface per spot, no marking over it
     const ribPoly = new Map(), markPoly = new Map(), surfGrid = new BoxGrid(24), surfList = [];
-    const ownPad = (o, e) => !!(o.node && o.node.passPad && (o.node === e.a || o.node === e.b)); // (the road's own pass-through pad holds its paint)
+    // (a pass-through pad, or a driveway node the road goes straight through: world.js `drivewayPass`)
+    const paintThrough = (n, e) => !!(n.passPad || (n.drivewayPass && n.drivewayPass.through.includes(e)));
+    const ownPad = (o, e) => !!(o.node && (o.node === e.a || o.node === e.b) && paintThrough(o.node, e)); // (the road's own pass-through pad holds its paint)
     {
         const padPts = new Map();
         for (const e of edges) {
@@ -123,7 +125,7 @@ export function buildRibbons(ctx) {
             // paint outline: at a pass-through pad (world.js) the ribbon stops short of the node, and where one road goes on at a
             // width step the mitred corner pulls the outer rim in (a wedge up to ~6 m long): the lines run on to the node at their
             // own full width (the neighbour's paint takes over there)
-            const sqEnd = n => n.passPad || (!n.pad && n.edges.length === 2);
+            const sqEnd = n => paintThrough(n, e) || (!n.pad && n.edges.length === 2);
             if (sqEnd(e.a) || sqEnd(e.b)) { const sq = (n, s) => [n.x + e.nx * s * widthAsphalt(e, s), n.z + e.nz * s * widthAsphalt(e, s)]; markPoly.set(e, [sqEnd(e.a) ? sq(e.a, 1) : aR, sqEnd(e.b) ? sq(e.b, 1) : bR, sqEnd(e.b) ? sq(e.b, -1) : bL, sqEnd(e.a) ? sq(e.a, -1) : aL]); }
             railRoadside.register(e, asphaltCorners(e, (f, sd) => sd > 0 ? f.wR : f.wL), asphaltCorners(e, widthSide));
             for (const [n, p, q] of [[e.a, aR, aL], [e.b, bR, bL]]) if (n.pad) { let o = padPts.get(n); if (!o) padPts.set(n, o = []); o.push(p, q); }

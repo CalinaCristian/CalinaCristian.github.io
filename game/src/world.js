@@ -145,6 +145,20 @@ export async function buildWorld(city, renderer, opts = {}) {
         const d1x = e1.b === n ? e1.dirx : -e1.dirx, d1z = e1.b === n ? e1.dirz : -e1.dirz, d2x = e2.a === n ? e2.dirx : -e2.dirx, d2z = e2.a === n ? e2.dirz : -e2.dirz;
         n.passPad = d1x * d2x + d1z * d2z >= 0.7 && !e1.virtual && !e2.virtual;
     }
+    // (owner, 2026-11-15, Bellevue: "lanes, roads") a driveway is no junction for the through road's paint either: where only
+    // service ways (garage / parking entrances) meet a road that goes straight on, with no signal, stop or crossing there,
+    // the lane and edge lines run on to the node (world-edge-ribbons.js breaks the edge line across the driveway mouth).
+    // NE 8th St had bare stretches between garage entrances: (-231 … -255, -331) 24 m with no line at all, 40 m elsewhere.
+    for (const n of nodeArr) {
+        n.drivewayPass = null; if (!n.pad || n.passPad || n.edges.length < 3 || n.hasLight || n.stop || n.giveWay || n.zebra || n.crossing) continue;
+        if (n.edges.some(e => e.virtual)) continue;
+        const through = n.edges.filter(e => e.type !== 'service'), drives = n.edges.filter(e => e.type === 'service');
+        if (through.length !== 2 || !drives.length) continue;
+        const [e1, e2] = through, into = (e) => e.b === n ? [e.dirx, e.dirz] : [-e.dirx, -e.dirz];
+        const [d1x, d1z] = into(e1), [d2x, d2z] = into(e2);
+        if (-(d1x * d2x + d1z * d2z) < 0.8 || e1.oneway !== e2.oneway) continue; // straight on (e2 travelled out of n)
+        n.drivewayPass = { through, drives };
+    }
     function retract(e, n) { return ((n.pad ?? isPadNode(n)) && (n.allEdges || n.edges).length >= 2 ? Math.min(n.radius, e.len * 0.45) : 0); }
     /**
      * corner point of edge e at node n on side s (+1 = right of a→b, -1 = left) at lateral distance w (≥0) from the centreline;

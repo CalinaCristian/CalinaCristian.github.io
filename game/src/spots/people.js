@@ -241,6 +241,10 @@ export class Crowd {
         let x = g.x + C * off, z = g.z - S * off; const probe = { x, z, y: 0 }; if (this.colliders && this._blocked(x, z, this._floor(x, z, null), 1.0)) { this._settle(probe); x = probe.x; z = probe.z; }
         const y = this._floor(x, z, null);
         (this.benches ||= []).push({ x, z, y, a });
+        // (owner, 2026-11-15: the spawned benches had no collider, the walker passed through them) the same box as an OSM
+        // bench's (osm.js buildFurniture): 1.8 × 0.6 m, seat height; walkers, the player and later placements keep off it
+        const c = { x, z, r: 1, angle: a, hw: 0.9, hd: 0.3, prop: true, h: 0.45, y, kind: 'crowd-bench' };
+        if (this.colliders?.add) this.colliders.add(c); else if (this.colliders) this.colliders.push(c);
         for (const u of [-0.6, 0, 0.6]) this.seats.push({ x: x + C * u, z: z - S * u, y: y + 0.47 - 0.45, yaw: a, backless: false, used: false });
     }
     _spawnSitters(g) {

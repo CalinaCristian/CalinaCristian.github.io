@@ -550,7 +550,8 @@ export default {
             ],
             groups: [
                 { x: TX - 4.7, z: TZ + .8, r: 0.1, n: 1, act: 'pose', look: [TX - 3, TZ + 14], y: hmTop, personas: ['tourist_us', 'kid', 'tourist_es'] },
-                { x: TX + 2, z: TZ + .8, r: 0.15, n: 1, act: 'sit', look: [TX + 1, TZ + 12], y: (x, z) => hmTop(x, z) - 0.02, personas: ['tourist_kr', 'local'] },
+                // (owner, 2026-11-15) no sitter on the sculpture: the one at (TX + 2, TZ + 0.8) sat in the ground pose on the
+                // sculpture's surface with no seat under it; the climber posing on the hand stays
                 { x: TX - 1.5, z: TZ + 12.5, r: 1.6, n: 3, act: 'photo', look: [TX - 2, TZ + 1], personas: ['tourist_us', 'tourist_cn', 'photographer', 'tourist_in'] },
                 { x: TX + 3.5, z: TZ + 10.5, r: 2.2, n: 5, act: 'watch', look: [TX, TZ + 1], personas: ['tourist_cn', 'tourist_jp', 'tourist_de', 'tourist_es', 'tourist_ca'] },
                 { x: TX + 5.6, z: TZ + 12.5, r: 0.3, n: 1, act: 'guide', look: [TX + 3, TZ + 10], personas: ['guide'], prop: 'flag' },

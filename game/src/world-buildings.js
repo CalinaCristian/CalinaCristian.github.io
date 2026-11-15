@@ -251,6 +251,18 @@ export async function buildBuildingsLandmarks(ctx) {
             if (s.text) { b.name = s.text; b.flags |= 2 | (s.brand ? 8 : 0); }
             if (US && (b.style === 'plain' || b.style === 'shop')) { b.style = 'bloc'; b.flags &= ~1; }
         }
+        // (owner, 2026-11-15, Pipera (711, 24, 183): "buildings within buildings?" — Bl. 9–13 at Șos. Fabrica de Glucoză 6-8,
+        // w938553616–620, 12-storey building=apartments towers, drew as all-glass curtain walls) the data build gives every
+        // large footprint in the Pipera office zone and in downtown Bellevue the 'glass' style by area alone, dwellings
+        // included (tools/osm/build-data.mjs). A dwelling (building=apartments / residential / dormitory) is a residential
+        // block — punched windows, balconies, its own wall colour — unless its own tags say glass (building:material=glass)
+        // or a street-level review row says so (building-review.js, applied after this). Hotels keep theirs.
+        const dwellingRestyled = bRecs.dwellingRestyled = [];
+        for (const b of bRecs) {
+            if (b.style !== 'glass' || !/^(apartments|residential|dormitory)$/.test(b.type || '') || /glass/.test(b.material || '') || lodging.has(b.i)) continue;
+            b.style = 'bloc'; dwellingRestyled.push(b.sourceId || b.i);
+        }
+        if (dwellingRestyled.length) console.info('[world] dwellings drawn as residential blocks, not glass:', dwellingRestyled.length);
     }
     // ---- street-level review rows by OSM id (round 2 fidelity pass; game/src/building-review.js): reviewed storeys / style / colour
     const buildingReviewAudit = applyBuildingReview({ key: city.id + '-' + distId, bRecs });
@@ -347,6 +359,66 @@ export async function buildBuildingsLandmarks(ctx) {
         }
         return overlap || laneInPoly(ring, !!(b.flags & 64), b);
     };
+    // ---- (owner, 2026-11-15, Bellevue) a ground-level footprint that truly stands on a carriageway kept at its real width
+    //      (lanes × lane width: world.js, "keeps its real width") is clipped back to the sidewalk line: the kerb (shoulder +
+    //      0.3 m kerb stone) plus a 1.5 m walk (5 ft, the ADA passing width). DOCUMENTED EXCEPTION to the source footprint:
+    //      10620 NE 8th St (w33725909, OSM building=retail) is mapped 7.8 m from the middle of NE 8th's 4-lane westbound
+    //      way, over the line of its separately mapped sidewalk (7.4 m). Roads are never moved or narrowed for a building.
+    //      Only carriageways whose width has a source (an OSM lane count, restored in world.js) clip; only a footprint
+    //      without a courtyard, assembly or source surface whose road-side corners all lie along that carriageway's own
+    //      straight stretch is clipped (its roof profile and passages are rebuilt from the clipped ring); anything else is
+    //      listed in kerbClipped.skipped.
+    const kerbClipped = bRecs.kerbClipped = { clipped: [], skipped: [] };
+    if (US) {
+        const WALK = 1.5, KERB = 0.3;
+        const roadEdge = e => e.realWidthRestored && !e.virtual && !e.tunnel && !e.bridge && e.drivable !== false && e.type !== 'service' && !/^(footway|path|pedestrian|cycleway|steps|track)$/.test(e.type || '') && Math.max(Math.abs(e.ya || 0), Math.abs(e.yb || 0)) < .3 && (e.lanesF + e.lanesB) >= 1;
+        const clipHalf = (ring, e, sd, off) => { // keep the part with lateral·sd ≥ off (Sutherland–Hodgman, one line)
+            const lat = ([x, z]) => ((x - e.a.x) * e.nx + (z - e.a.z) * e.nz) * sd - off, out = [];
+            for (let i = 0; i < ring.length; i++) {
+                const P = ring[i], Q = ring[(i + 1) % ring.length], p = lat(P), q = lat(Q);
+                if (p >= 0) out.push(P);
+                if ((p >= 0) !== (q >= 0)) { const t = p / (p - q); out.push([P[0] + (Q[0] - P[0]) * t, P[1] + (Q[1] - P[1]) * t]); }
+            }
+            return out;
+        };
+        for (const b of bRecs) {
+            if (b.skip || b.minH > 2.5 || !b.ring || b.ring.length < 3) continue;
+            edgesInBox(b.x0 - 2, b.z0 - 2, b.x1 + 2, b.z1 + 2, e => {
+                if (!roadEdge(e)) return;
+                for (const sd of [1, -1]) {
+                    const off = (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + KERB + WALK;
+                    const lat = ([x, z]) => ((x - e.a.x) * e.nx + (z - e.a.z) * e.nz) * sd, along = ([x, z]) => (x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz;
+                    const roadSide = b.ring.filter(q => lat(q) < off - .05);
+                    if (!roadSide.length || !b.ring.some(q => lat(q) > 0) || b.ring.every(q => lat(q) < off - .05)) continue;
+                    // standing on the carriageway itself (inside its kerb within its stretch), not just within the walk band
+                    const kerb = off - WALK - KERB, onRoad = clipHalf(b.ring, e, -sd, -kerb).filter(q => along(q) > -.5 && along(q) < e.len + .5);
+                    if (Math.abs(signedArea(clipHalf(b.ring, e, -sd, -kerb))) < .05 || !onRoad.length) continue;
+                    const id = data.buildingIds?.[b.derivedFrom ?? b.i] || b.i;
+                    // the stretch the clip line holds for: this edge, plus a straight continuation with the same kerb line
+                    // (a frontage across a driveway node runs on along the next piece of the same road)
+                    const w0 = sd > 0 ? e.wR : e.wL, onLine = (f, n) => {
+                        if (!f || f.virtual || f.name !== e.name || !roadEdge(f)) return false;
+                        const sameDir = (e.b === n && f.a === n) || (e.a === n && f.b === n), dot = f.dirx * e.dirx + f.dirz * e.dirz, s2 = sameDir ? sd : -sd;
+                        return (sameDir ? dot > .98 : dot < -.98) && Math.abs((s2 > 0 ? f.wR : f.wL) - w0) < .3;
+                    };
+                    const ext = n => { const f = n.edges.find(g => g !== e && onLine(g, n)); return (n.radius || 0) + (f ? f.len : 0); };
+                    // (a source roof profile is rebuilt from the clipped ring: its prepared surface no longer matches the ring's
+                    //  signature; a passage's solids are re-cut from it below)
+                    const plain = !(b.holes.length || b.assembly || b.sourceSurface || b.assemblySurface || b.canopy);
+                    const inStretch = roadSide.every(q => lat(q) >= 0 && along(q) >= -ext(e.a) && along(q) <= e.len + ext(e.b));
+                    if (!plain || !inStretch) { kerbClipped.skipped.push({ source: id, road: e.name || e.type, reason: !plain ? 'not a plain footprint (' + ['holes', 'assembly', 'sourceSurface', 'assemblySurface', 'canopy'].filter(k => k === 'holes' ? b.holes.length : b[k]).join(', ') + ')' : 'road-side corners beyond this carriageway\'s stretch' }); continue; }
+                    const ring = clipHalf(b.ring, e, sd, off), area = Math.abs(signedArea(ring));
+                    if (ring.length < 3 || area < Math.max(8, b.area * .4)) { kerbClipped.skipped.push({ source: id, road: e.name || e.type, reason: 'too little left after the clip' }); continue; }
+                    const depth = Math.max(...roadSide.map(q => off - lat(q)));
+                    kerbClipped.clipped.push({ source: id, road: e.name, side: sd > 0 ? 'right' : 'left', depthM: +depth.toFixed(2), areaBefore: +b.area.toFixed(1), areaAfter: +area.toFixed(1) });
+                    b.ring = ring; b.area = area; b.c = centroid(ring); b.kerbClipped = true;
+                    b.x0 = Math.min(...ring.map(p => p[0])); b.x1 = Math.max(...ring.map(p => p[0])); b.z0 = Math.min(...ring.map(p => p[1])); b.z1 = Math.max(...ring.map(p => p[1]));
+                    if (b.passages?.length) { const n0 = buildingPassageAudit.length; configurePassages(b); buildingPassageAudit.length = n0; } // (the audit rows stand: they do not depend on the ring)
+                }
+            });
+        }
+        if (kerbClipped.clipped.length) console.info('[world] footprints clipped back to the sidewalk line:', kerbClipped.clipped.length);
+    }
     for (const b of bRecs) {
         if (!bBad(b.ring, b)) continue;
         if (data.buildingGeometryPolicy === 'source') {

@@ -269,6 +269,72 @@ export async function buildWorld(city, renderer, opts = {}) {
         }
         if (narrowed) { for (const n of touched) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5; __buildRoadGraphAids.sccInfo.dividedPairNarrowed = narrowed; }
     }
+    // (owner, 2026-11-15, Bellevue: "bellevue needs some rework too on the buildings, lanes, roads") a one-way carriageway
+    // with an OSM lane count (NE 8th St, 112th Ave NE, Bellevue Way NE) keeps its real width: lanes × the road's lane width
+    // (3.5 m, inside Bellevue's 11–12 ft arterial standard, Transportation Design Manual 2024 Table 3-7). The lane alignment
+    // (world-road-graph.js) holds the left kerb where the narrowest neighbouring segment puts it, so a 4–5-lane stretch
+    // opened all its extra lanes on the right, into the footprints there, and the footprint pass then narrowed those lanes
+    // to 2.6–2.75 m (NE 8th westbound between 106th and 108th: 4 lanes in 11 m), while the gap to the opposite carriageway
+    // stayed up to 5 m of bare paving. OSM maps a carriageway along its middle (the separately mapped sidewalks stand
+    // 7.4–9.5 m from the 4–5-lane ways) and the turn pockets those lanes are (turn:lanes=left|left|…) open into the median:
+    // the full width comes back, and each run of same-lane-count segments moves its left kerb toward the opposite
+    // carriageway, together, up to 0.6 m from it; what does not fit there stays on the right (a footprint still standing
+    // on the carriageway is clipped to the kerb: world-buildings.js). MODEL: widths are the city's lane width; a way with a
+    // mapped or reviewed width is left alone.
+    if (US) {
+        const roadLaneW = new Map(roads.map(rd => [rd.index, rd.laneW]));
+        const T = e => (e.lanesF + e.lanesB) * (roadLaneW.get(e.road) ?? e.laneW);
+        const flat = e => Math.max(Math.abs(e.ya || 0), Math.abs(e.yb || 0)) < .3;
+        const own = e => e.oneway && !e.virtual && !e.tunnel && !e.bridge && !e.roadWidthSource && !e.contraflowBus && !e.madeTwoWay && e.type !== 'service' && flat(e) && e.name && data.roadSourceGeometry?.[e.road]?.tags?.lanes != null;
+        const short = e => e.wL + e.wR < T(e) - .05;
+        const nextOf = e => e.b.edges.filter(f => f !== e && f.a === e.b && own(f) && f.name === e.name && f.lanesF === e.lanesF);
+        const prevOf = e => e.a.edges.filter(f => f !== e && f.b === e.a && own(f) && f.name === e.name && f.lanesF === e.lanesF);
+        // the carriageways beside each edge on its left (parallel, at grade): [{ f, d: distance from e's centre line to f's
+        // facing edge }] at three points along it (none: no room on the left)
+        const leftOf = e => {
+            const out = [];
+            for (const t of [.2, .5, .8]) {
+                const x = e.a.x + (e.b.x - e.a.x) * t, z = e.a.z + (e.b.z - e.a.z) * t;
+                edgesInBox(x - 22, z - 22, x + 22, z + 22, f => {
+                    if (f === e || f.virtual || f.tunnel || f.bridge || !flat(f) || f.type === 'service' || (f.lanesF + f.lanesB) < 1) return;
+                    const q = distPointSeg(x, z, f.a.x, f.a.z, f.b.x, f.b.z); if (q.t <= .02 || q.t >= .98 || q.d > 20) return;
+                    if (((q.cx - x) * e.nx + (q.cz - z) * e.nz) >= 0) return; // (on the left)
+                    if (Math.abs(f.dirx * e.dirx + f.dirz * e.dirz) < .9) return;
+                    const fSide = ((x - q.cx) * f.nx + (z - q.cz) * f.nz) > 0 ? f.wR : f.wL;
+                    out.push({ f, d: q.d - fSide - shoulderOf(f) - shoulderOf(e) });
+                });
+            }
+            return out;
+        };
+        const seen = new Set(), runs = [];
+        for (const e of edges) {
+            if (seen.has(e) || !own(e) || !short(e)) continue;
+            const run = [e]; seen.add(e);
+            for (let f = e, k = 0; k < 12; k++) { const n2 = prevOf(f); if (n2.length !== 1 || seen.has(n2[0])) break; f = n2[0]; run.unshift(f); seen.add(f); }
+            for (let f = e, k = 0; k < 12; k++) { const n2 = nextOf(f); if (n2.length !== 1 || seen.has(n2[0])) break; f = n2[0]; run.push(f); seen.add(f); }
+            if (run.some(f => f.footprintNarrowed)) runs.push(run); // (narrowed to clear footprints; other narrowings — a divided pair, a ramp beside — keep theirs)
+        }
+        // how far each edge's left kerb may go, from the widths as they stand: up to 0.6 m from the opposite carriageway, or
+        // to the middle of the gap less 0.3 m when that carriageway is restored too (both pockets share the median)
+        const cand = new Set(runs.flat()), avail = new Map();
+        for (const e of cand) { const L = leftOf(e); let a = L.length ? Infinity : e.wL; for (const { f, d } of L) a = Math.min(a, cand.has(f) ? e.wL + (d - e.wL) / 2 - .3 : d - .6); avail.set(e, a); } // (no carriageway on the left: no median to open into)
+        const touched = new Set(), audit = [];
+        for (const run of runs) {
+            const want = Math.max(...run.map(e => T(e))), Rnow = Math.min(...run.map(e => e.wR));
+            // the run's left kerb: as far as the footprint side needs (its right side keeps the width the footprints left it),
+            // limited by the room beside its narrowed segments; one value along the run keeps its lane lines continuous, a
+            // segment with less room beside it (a junction approach) takes what it has
+            const narrowed = run.filter(e => e.footprintNarrowed), wRun = Math.min(want - Rnow, ...narrowed.map(e => avail.get(e)));
+            for (const e of run) {
+                const before = [e.wL, e.wR], wL = Math.max(e.wL, Math.min(wRun, avail.get(e)));
+                e.wL = wL; e.wR = want - wL; e.laneW = want / Math.max(1, e.lanesF + e.lanesB); e.median = -2 * e.wL; e.halfW = Math.max(e.wL, e.wR); e.realWidthRestored = true;
+                touched.add(e.a).add(e.b);
+                audit.push({ edge: e.id, road: data.roadSourceGeometry?.[e.road]?.sourceId ?? e.road, name: e.name, lanes: e.lanesF, before: before.map(v => +v.toFixed(2)), after: [+e.wL.toFixed(2), +e.wR.toFixed(2)] });
+            }
+        }
+        for (const n of touched) if (n.edges.length) n.radius = Math.max(...n.edges.map(e => e.halfW)) + .5;
+        __buildRoadGraphAids.sccInfo.realWidthRestored = audit;
+    }
     // (owner, 2026-11-12, Grozavesti: "fences are not continuous on the bridge still in many places") along 100 m of the Basarab
     // decks the tram on the slab beside a carriageway overhangs that carriageway's edge by 0.3-0.6 m (OSM centre lines and
     // modelled widths leave no room between them), so the railing between road and track could not stand: a tram would run

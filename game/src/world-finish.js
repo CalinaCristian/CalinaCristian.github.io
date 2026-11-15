@@ -308,6 +308,8 @@ export function buildWorldFinish(ctx) {
     stats.pasajUnirii = { ...pasajStats, portals: pasajPortals.length }; // (unirii-pasaj-look: planters, motif triangles, portal headers)
     stats.buildingOverlapCuts = overlapCuts; // (world-space basin outlines: audits of what stands in or over them)
     stats.buildingOutlineParts = outlineParts; // (style-estimated outlines left undrawn in favour of the tagged volumes inside them)
+    stats.kerbClipped = bRecs.kerbClipped || null; // (footprints standing on a real-width carriageway, clipped to the sidewalk line: world-buildings.js)
+    stats.dwellingRestyled = bRecs.dwellingRestyled || []; // (dwellings the data build styled 'glass' by area, drawn as residential blocks: world-buildings.js)
     stats.bridgeGuardCompletion = guardCompletion; stats.railingNetwork = railingNetwork; stats.railingDrops = railingDrops;
     stats.elevatedSources = elevatedSources.report; stats.areaFences = areaFences; stats.underpassMouths = underpassMouths; stats.entranceCanopies = entranceCanopies; stats.pedestrianBridges = pedestrianBridges;
     stats.basarabLamps = basarabLamps;

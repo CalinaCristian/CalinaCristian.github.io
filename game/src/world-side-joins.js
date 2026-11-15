@@ -17,7 +17,7 @@ export function buildSideJoins(ctx) {
         cornerGrid, cornerPolys, cornerSkips, coveredByOther, data, distCfg, edgeGrid, edges, kerbCol,
         layerY, padAsphalt, padCorners, padHeightAt, pierColl, pierSpots, polyDist, railRoadside,
         raised, raisedEdge, retainedDeck, ribbons, sceneryDeckGrid, sharedPadSurfaces, sideCol, sideExtra,
-        sideJoins, widthAsphalt, widthSide, yAlong,
+        sideJoins, widthAsphalt, widthSide, yAlong, junctionFills = [],
     } = ctx;
     // raised junction corners: between two neighbouring sidewalk ends round a pad, a quad from one end (asphalt
     // corner → property-line corner) to the next, at the kerb's height, with a kerb face toward the pad and a back face
@@ -56,6 +56,7 @@ export function buildSideJoins(ctx) {
         }
     }
     // junction pads
+    const centreFan = !!distCfg?.junctionFills;
     for (const [n, o] of padCorners) {
         const c = cellOf(n.x, n.z), bridgePadRoadStart = c.pad.ic, bridgePadSideStart = c.ground.ic;
         const ly = Math.max(0, Math.min(...n.edges.map(layerY)));
@@ -90,6 +91,20 @@ export function buildSideJoins(ctx) {
             const hs = hull.map(([x, z]) => padHeightAt(n, x, z));
             const shared=sharedPadSurfaces.get(n.id);
             if(shared)for(const tri of shared.topTriangles)mb.face3(...tri,col,[0,1,0],-1,tri.map(p=>[p[0]*u,p[2]*u]));
+            else if (centreFan && (n.drivewayPass || n.passPad) && hs.some(h => Math.abs(h) > .02)) {
+                // (owner backlog, 2026-11-15, Bellevue, NE 8th St at the I-405 ramps (544, -306 / -320): a road going on through a
+                // pad on a grade (off the overpass) had its lane and edge lines run on to the node, under the pad: the hull's fan
+                // from one corner put the pad up to 0.5 m above the road's own grade. With `junctionFills` (cities.js) such a pad is
+                // fanned from the node at its own height, so it follows the approaches' grades and the lines show on it.
+                // (the road's kerb lines at the node are rim points too, at the node's own height: the rim then follows the
+                // road's grade on both sides and its edge lines show)
+                const thru = n.passPad ? n.edges.filter(e => !e.virtual) : n.drivewayPass.through, ring = hull.map((p, k) => [p[0], p[1], hs[k]]);
+                for (const e of thru) for (const sd of [1, -1]) { const w = widthAsphalt(e, sd) + sideExtra(e, sd, e.a === n ? 0 : e.len), x = n.x + e.nx * sd * w, z = n.z + e.nz * sd * w; ring.push([x, z, padHeightAt(n, x, z)]); }
+                ring.sort((p, q) => Math.atan2(p[1] - n.z, p[0] - n.x) - Math.atan2(q[1] - n.z, q[0] - n.x));
+                ring.forEach(([x, z, h]) => mb.v(x, Y.road + ly + h, z, 0, 1, 0, x * u, z * u, col));
+                const mid = mb.v(n.x, Y.road + ly + padHeightAt(n, n.x, n.z), n.z, 0, 1, 0, n.x * u, n.z * u, col);
+                for (let k = 0; k < ring.length; k++) mb.triUp(mid, base + k, base + (k + 1) % ring.length);
+            }
             else {hull.forEach(([x, z], k) => mb.v(x, Y.road + ly + hs[k], z, 0, 1, 0, x * u, z * u, col));
             for (let k = 1; k < hull.length - 1; k++) mb.triUp(base, base + k, base + k + 1);}
             ribbons.push({ node: n, poly: hull, hs });
@@ -142,6 +157,15 @@ export function buildSideJoins(ctx) {
             }
             bridgeJunctionAudit.padUndersides = (bridgeJunctionAudit.padUndersides || 0) + 1;
         }
+    }
+    // a ring of short ways closing one junction (world.js `junctionFills`): its inside paved at the pads' level, just under
+    // them (the pads and carriageways keep their own surface where they reach), registered as a pad
+    for (const { nodes: ns, poly } of junctionFills) {
+        const n = ns[0], c = cellOf(poly.reduce((m, p) => m + p[0], 0) / poly.length, poly.reduce((m, p) => m + p[1], 0) / poly.length), mb = c.pad, u = 0.15, base = mb.vc, col = padAsphalt(n);
+        const ly = Math.max(0, Math.min(...ns.flatMap(m => m.edges.map(layerY)))), hs = poly.map(([x, z]) => { let best = null, bd = Infinity; for (const m of ns) { const d = Math.hypot(m.x - x, m.z - z); if (d < bd) { bd = d; best = m; } } return padHeightAt(best, x, z); });
+        poly.forEach(([x, z], k) => mb.v(x, Y.road + ly + hs[k] - 0.006, z, 0, 1, 0, x * u, z * u, col));
+        for (let k = 1; k < poly.length - 1; k++) mb.triUp(base, base + k, base + k + 1);
+        ribbons.push({ node: n, poly, hs });
     }
     // ---- ribbon index: is (x, z) (± r) on a carriageway / junction pad? (tunnel ribbons do not block the surface)
     const ribGrid = new BoxGrid(24);

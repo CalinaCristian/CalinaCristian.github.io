@@ -12,8 +12,7 @@ All 2026-11-15 reports are fixed and re-checked live (release 9f47516f), so they
 |---|---|---|
 | Spot menu | Kerry Park, Athenaeum, Spring Palace, Botanical Garden, Lincoln Square and Pioneer Square have real activities but are not in MENU_ORDER, so their achievements count only with `?spots=all` | The owner decides whether to add them to the menu |
 | Spot surroundings | Roofs stay flat where OSM tags no `roof:shape` | Find a source-backed rule (tagged neighbours, building type) or leave as mapped |
-| Bellevue | Lane lines jump up to ~3.5 m where a restored one-way run meets a different lane count; bare junction interiors at 112th Ave / NE 8th St and the I-405 ramp terminal | Taper the lane change over the run; fill the interiors from the junction polygon |
-| SeaTac | Ramp w31928834 overlaps w31928843 by ~1 m; the Airport Expressway 3-lane parts sit 1.85 m off their mapped line | Check against OSM and Street View at those ways |
+| Bellevue / SeaTac decks | Kerb tapers are not drawn on decks or raised ramps: lane lines still step 1.75–3.5 m on the NE 8th St deck over I-405 (430 … 520, -307 / -321) and the Airport Expressway's 5-lane parts (w6429441, w23609851, raised at their lane change) sit 1.85 m off their ways | Taper on decks once the deck guards and bents are shown to follow a varying width |
 
 ## Other open work
 

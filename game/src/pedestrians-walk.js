@@ -44,7 +44,8 @@ export class PedestriansWalk {
         const w = (this.t.world.district ? (side > 0 ? e.wR : e.wL) : null) ?? e.halfW ?? 6, sw = this.width(e, side);
         const lo = Math.min(this.inset(e.a), e.len * 0.45), hi = e.len - Math.min(this.inset(e.b), e.len * 0.45);
         let tmin = 0, tmax = 0;
-        if (e.taperR) { const t0 = e.taperR[0], t1 = e.taperR[1]; if (!Number.isFinite(t0) || !Number.isFinite(t1)) return 0; tmin = Math.min(0, t0, t1); tmax = Math.max(0, t0, t1); }
+        const tp = e.kerbTaper ? (side > 0 ? e.taperR : e.taperL) : e.taperR; // (a kerb taper: world.js kerbTapers, either side)
+        if (tp) { const t0 = tp[0], t1 = tp[1]; if (!Number.isFinite(t0) || !Number.isFinite(t1)) return 0; tmin = Math.min(0, t0, t1); tmax = Math.max(0, t0, t1); }
         const px = x - e.a.x, pz = z - e.a.z, along = px * dx + pz * dz, out = (px * nx + pz * nz) * side;
         const da = Math.max(0, lo - along, along - hi), dl = Math.max(0, w + tmin - out, out - (w + sw + tmax)), d = Math.hypot(da, dl) - 1e-6;
         return Number.isFinite(d) && d > 0 ? d : 0;
@@ -362,7 +363,7 @@ export class PedestriansWalk {
         p.walkOff = (dx * e.nx + dz * e.nz) * p.side - this.off(e, p.side) - (p.dodge || 0) - this.taper(e, p.side, p.s);
     }
     /** A lane-drop taper moves the sidewalk out with the kerb (world.sideExtra): the walking line follows it. */
-    taper(e, side, s) { return (e.taperR ? this.t.world?.sideExtra?.(e, side, s) || 0 : 0) + (e.deckWalkShift ? deckWalkShiftAt(e, side, s / (e.len || 1)) : 0); }
+    taper(e, side, s) { return (e.taperR || e.taperL ? this.t.world?.sideExtra?.(e, side, s) || 0 : 0) + (e.deckWalkShift ? deckWalkShiftAt(e, side, s / (e.len || 1)) : 0); }
     placeWalk(p) {
         const ox = p.x, oz = p.z;
         if (this.width(p.e, p.side) <= 0 && this.width(p.e, -p.side) > 0) { p.side = -p.side; p.walkOff = 0; p.dodge = 0; p.dodgeEdge = null; }

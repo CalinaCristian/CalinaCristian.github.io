@@ -239,6 +239,8 @@ const SEA_DISTRICTS = {
         // (world-road-graph.js `laneDropTapers`), raised ramps on fill guarded like the decks they continue
         // (world-side-joins.js `embankGuards`), no deck guard standing in the lanes of a deck just below (world-facades-guards.js `stackedDecks`)
         kerbRuns: true, rampTapers: true, laneDropTapers: true, embankGuards: true, stackedDecks: true,
+        // the Airport Expressway's parts each on their own way, the kerb steps between them tapered (world.js `kerbTapers`)
+        kerbTapers: 'motorway',
         congestion: [ // from game/research/seattle-seatac.json traffic.hotspots
             { lat: 47.44400, lon: -122.30000, radius: 250, hours: [[4.5,  7.5],  [11,  14]], level: 0.70, note: 'Departures Drive kerb' },
             { lat: 47.44350, lon: -122.30000, radius: 250, hours: [[11,  14],  [20.5,  24]], level: 0.60, note: 'Arrivals Drive kerb' },
@@ -250,6 +252,11 @@ const SEA_DISTRICTS = {
         // round 5 (note 43, owner-approved 2026-11-07): playable area = 130 m either side of the chapter route(s), 200 m round each door,
         // 110 m round each start, 120 m round the CV-stop building (routes from the CHAPTERS starts; closures sit at this edge)
         bbox: [47.6138, -122.2051, 47.6198, -122.1839], center: { lat: 47.6145, lon: -122.1950 },
+        // (owner backlog, 2026-11-15: "lane lines jump up to ~3.5 m where a restored one-way run meets a different lane count")
+        // a step in either kerb along a named one-way chain is drawn as a taper (world.js `kerbTapers`)
+        // the inside of a junction closed by a ring of short ways is paved and unmarked, and a ramp leaving or joining a road
+        // that goes straight on does not stop its lines (world.js `junctionFills`)
+        kerbTapers: true, junctionFills: true,
         bands: [
             { r: 130, chapter: 'uipath-bel', line: [[47.617456, -122.187236], [47.617379, -122.187755], [47.617488, -122.196736], [47.617485, -122.201792], [47.616422, -122.201779], [47.616112, -122.201664], [47.616804, -122.201630], [47.617230, -122.201520]] },
         ],

@@ -192,7 +192,7 @@ export function buildEdgeRibbons(ctx) {
         const sourceMarks=markProxy(c.marks,e),pendingLongitudinal=[],longM={flatQuad(...q){pendingLongitudinal.push(q);}};
         let longStart=-Infinity,longEnd=Infinity;
         const reserveControl=(end,sa,sb)=>{if(end===e.a)longStart=Math.max(longStart,sa,sb);else longEnd=Math.min(longEnd,sa,sb);};
-        if (s1 - s0 > 1 && !e.unpaved && e.type !== 'service') {
+        if (s1 - s0 > 1 && !e.unpaved && e.type !== 'service' && !e.junctionInterior) { // (a way inside a junction ring, world.js junctionFills: no lines)
             const m = sourceMarks, hw = 0.07;
             const minor = e.type === 'residential' || e.type === 'living_street' || e.type === 'unclassified' || e.type === 'service';
             const med2 = e.median / 2, shift = e.laneCenterShiftM || 0;
@@ -244,11 +244,13 @@ export function buildEdgeRibbons(ctx) {
             // (2026-11-08, owner: "some roads still don't have proper lines", Calea Floreasca by PAUL) a one-way carriageway
             // built wider than its lane count (lanes tag < the real width) left a whole unmarked lane: mark the lanes evenly
             // over the real width instead
+            // (a kerb taper, world.js kerbTapers: the lanes are laid from the tapered left kerb)
+            const kt = e.kerbTaper && e.oneway ? s => -sideExtra(e, -1, s) : null;
             if (evenLanes) {
-                for (let i = 1; i < nEff; i++) if (!(e.busLane && i === nEff - 1)) dashLine(longM, e, s0, s1, -e.wL + Wc * i / nEff, yM, white, dash[0], dash[1], hw);
+                for (let i = 1; i < nEff; i++) if (!(e.busLane && i === nEff - 1)) dashLine(longM, e, s0, s1, kt ? s => -e.wL + kt(s) + Wc * i / nEff : -e.wL + Wc * i / nEff, yM, white, dash[0], dash[1], hw);
             } else if (!minor || e.lanesF > 1 || e.lanesB > 1) {
                 // (a ramp taper, world.js rampTapers: the lanes share the width as it grows, so each line runs straight on into the next edge's)
-                const tapered = e.rampTaper && e.taperR && e.oneway ? i => s => shift + med2 + (e.wL + e.wR + sideExtra(e, 1, s)) / Math.max(1, e.lanesF + e.lanesB) * i : null;
+                const tapered = e.rampTaper && e.taperR && e.oneway ? i => s => shift + med2 + (e.wL + e.wR + sideExtra(e, 1, s)) / Math.max(1, e.lanesF + e.lanesB) * i : kt ? i => s => shift + med2 + kt(s) + e.laneW * i : null;
                 for (let i = 1; i < e.lanesF; i++) dashLine(longM, e, s0, s1, tapered ? tapered(i) : shift + med2 + e.laneW * i, yM, white, dash[0], dash[1], hw * (/motorway/.test(e.type) ? 1.4 : 1));
                 for (let i = 1; i < e.lanesB; i++) dashLine(longM, e, s0, s1, shift - (med2 + e.laneW * i), yM, white, dash[0], dash[1], hw);
             }
@@ -279,7 +281,8 @@ export function buildEdgeRibbons(ctx) {
                     // (owner, 2026-11-13: "lanes are drawn badly on both seattle and bellevue") US: the left edge line of every one-way
                     // roadway is yellow (MUTCD 3B.06: divided highways, one-way roadways and ramps), not only on motorways / trunks;
                     // International Blvd's and NE 8th St's carriageways had a white line along their median side
-                    dashLine(edgeM, e, s0, s1, -(e.wL - 0.15), yM, (US && e.oneway) ? yellow : white, Math.min(1, s1 - s0), 0, 0.08);
+                    if (e.taperL) { const n = Math.max(1, Math.ceil(s1 - s0)), col = (US && e.oneway) ? yellow : white; for (let i = 0; i < n; i++) { const sa = s0 + (s1 - s0) * i / n, sb = s0 + (s1 - s0) * (i + 1) / n, oa = -(e.wL - 0.15 + sideExtra(e, -1, sa)), ob = -(e.wL - 0.15 + sideExtra(e, -1, sb)), P = (q, o) => [e.a.x + e.dirx * q + e.nx * o, e.a.z + e.dirz * q + e.nz * o], A = P(sa, oa - 0.08), B = P(sb, ob - 0.08), C = P(sb, ob + 0.08), D = P(sa, oa + 0.08); edgeM.flatQuad(A[0], A[1], B[0], B[1], C[0], C[1], D[0], D[1], yM, col, 0); } } // (a kerb taper: the line follows the left kerb)
+                    else dashLine(edgeM, e, s0, s1, -(e.wL - 0.15), yM, (US && e.oneway) ? yellow : white, Math.min(1, s1 - s0), 0, 0.08);
                 }
             }
             // stop lines at lights / stop signs
@@ -291,8 +294,9 @@ export function buildEdgeRibbons(ctx) {
                 const r = retract(e, end) + 0.8;
                 const s = atA ? r : e.len - r;
                 reserveControl(end,s-.25,s+.25);
-                const wIn = atA ? -e.wL : e.wR;
-                const o0 = shift + (atA ? -Math.max(0, med2) : (e.oneway ? med2 : Math.max(0, med2)));
+                const kx = sd => e.kerbTaper ? sideExtra(e, sd, s) : 0; // (a kerb taper: the line reaches the tapered kerbs)
+                const wIn = atA ? -e.wL - kx(-1) : e.wR + kx(1);
+                const o0 = shift + (atA ? -Math.max(0, med2) : (e.oneway ? med2 - kx(-1) : Math.max(0, med2)));
                 if (end.giveWay && !end.hasLight) { for (let k = 0; k < 6; k++) { const oo = o0 + (wIn - o0) * (k + 0.5) / 6; band(m, e, s - 0.25, s + 0.25, oo - 0.25, oo + 0.25, yM + 0.002, white); } }
                 else band(m, e, s - 0.25, s + 0.25, o0, wIn, yM + 0.002, white);
             }
@@ -313,7 +317,8 @@ export function buildEdgeRibbons(ctx) {
                     }
                     if (sc === null) continue;
                     reserveControl(end,sc-1.5,sc+1.5);
-                    for (let k = -e.wL + 0.4; k < e.wR - 0.3; k += 1.0) band(m, e, sc - 1.4, sc + 1.4, k, k + 0.5, yM + 0.004, white);
+                    const kxL = e.kerbTaper ? sideExtra(e, -1, sc) : 0, kxR = e.kerbTaper ? sideExtra(e, 1, sc) : 0; // (a kerb taper: kerb to kerb)
+                    for (let k = -e.wL - kxL + 0.4; k < e.wR + kxR - 0.3; k += 1.0) band(m, e, sc - 1.4, sc + 1.4, k, k + 0.5, yM + 0.004, white);
                 }
             }
         }
@@ -399,7 +404,7 @@ export function buildEdgeRibbons(ctx) {
                 for (let s = ra + ((e.id * 7) % step); s < rb; s += step) {
                     for (const sd of (resLamp ? [((e.road * 7) % 2) ? 1 : -1] : e.oneway && e.lanesF <= 1 ? [1] : [1, -1])) {
                         if (e.sidewalkSource.explicit && sidewalkWidth(e, sd) <= .3 && !e.bridge) continue;
-                        const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e);
+                        const w = (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + (e.kerbTaper ? sideExtra(e, sd, s) : 0); // (a kerb taper: on its kerb)
                         const yl = yAlong(e,e.a.x+e.dirx*s,e.a.z+e.dirz*s);
                         const sw = sidewalkWidth(e, sd), o = e.bridge || Math.abs(yl) > 0.3 ? w + 0.35 : sw >= 1.2 ? w + Math.max(0.55, sw - 0.45) : w + 1.0; // (on ramps / in trenches: on the deck edge, inside the walls)
                         lampSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, Math.atan2(e.nz * sd, -e.nx * sd), yAlong(e,e.a.x+e.dirx*s+e.nx*o*sd,e.a.z+e.dirz*s+e.nz*o*sd), hh, e, sd]);
@@ -421,7 +426,7 @@ export function buildEdgeRibbons(ctx) {
                 for (let s = s0 + 2; s < s1; s += step * rng.range(0.9, 1.1)) for (const sd of [1, -1]) {
                     const scale = rng.range(0.8, 1.2); // preserve the shared RNG stream even when a source side is absent
                     if (sidewalkWidth(e, sd) < 2.2) continue;
-                    const o = (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + clamp(sidewalkWidth(e, sd) * 0.45, 1.0, 2.2);
+                    const o = (sd > 0 ? e.wR : e.wL) + shoulderOf(e) + clamp(sidewalkWidth(e, sd) * 0.45, 1.0, 2.2) + (e.kerbTaper ? sideExtra(e, sd, s) : 0);
                     treeSpots.push([e.a.x + e.dirx * s + e.nx * o * sd, e.a.z + e.dirz * s + e.nz * o * sd, scale, 'street', e.road, sp]);
                 }
             }
@@ -526,7 +531,7 @@ export function buildEdgeRibbons(ctx) {
                 const c = cellOf(e.a.x + e.dirx * sStop, e.a.z + e.dirz * sStop), mb = markProxy(c.marks, e), v0 = c.marks.vc;
                 const med2 = e.median / 2;
                 lanes.forEach((k, j) => { // j = 0 is the leftmost lane in the travel direction
-                    const lat = (e.laneCenterShiftM || 0) + (dirSign > 0 ? med2 + e.laneW * (j + 0.5) : -(Math.max(0, med2) + e.laneW * (j + 0.5)));
+                    const lat = (e.laneCenterShiftM || 0) + (dirSign > 0 ? med2 + e.laneW * (j + 0.5) - (e.kerbTaper ? sideExtra(e, -1, sStop - 2) : 0) : -(Math.max(0, med2) + e.laneW * (j + 0.5))); // (a kerb taper: from the tapered left kerb)
                     if (k && k !== 'none') arrow(mb, e, sStop, lat, dirSign, k.split(';'), Y.road + Y.mark + 0.003);
                 });
                 if (Math.abs(e.ya) > 0.01 || Math.abs(e.yb) > 0.01) displace(c.marks, v0, (x, z) => yAlong(e, x, z), e);

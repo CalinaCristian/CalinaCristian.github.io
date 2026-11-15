@@ -185,6 +185,19 @@ Photo-derived values are medians of hand-picked regions. Facades of 400 Lincoln 
 - Street trees in the towers' shadows on NE 8th / Bellevue Way are not added (unreadable on the imagery, §5).
 - Wilburton station look and stairs; the 2 Line rail level (§9).
 - Tunnel interior and floating-bridge parapet heights / deck freeboard come from photos only (no WSDOT drawing retrieved).
+- **Kerb tapers** (2026-11-15, `kerbTapers` in `cities.js`, world.js): each one-way segment keeps the cross-section the
+  width passes give it (the lane alignment's left kerb, a restored run's real width, its OSM lane count); where that steps
+  at a node along a named one-way chain the narrower side widens to meet the wider one over 10 m per metre of step
+  (15–45 m), never on a deck or raised ramp and never back toward building footprints a kerb was narrowed for. MODEL, not
+  an OSM correction: OSM places the lane change at a node; the taper length is an estimate (WSDOT / MUTCD urban lane
+  tapers are of this order). Lane lines are laid from the tapered left kerb. Steps that stay: on the NE 8th St deck over
+  I-405 (no tapers on decks) and where both sides of a node are decks or claimed by another taper.
+- **Junction rings** (2026-11-15, `junctionFills`): 112th Ave NE × NE 8th St and Bellevue Way × NE 8th St are closed in OSM
+  by rings of short ways between four or five junction nodes; the ring's inside is paved as one junction and its short
+  ways carry no lane or edge lines and no inferred walkway on the inside (a median sliver showed between the pads before).
+  At the I-405 ramps on NE 8th St (w6334468 "Exit → Everett", w160183269 "Exit → Northeast 8th Street West") the street's
+  lines run on through the ramp nodes like through a driveway, and the pads there follow the street's grade off the
+  overpass (they stood up to 0.5 m above it and hid 13–17 m of the median edge lines). Model choices, no OSM change.
 - The `bel-lincoln-square` spot is not in `MENU_ORDER` (`game/src/spot-availability.js`), so it is not offered and
   places.json does not list it.
 

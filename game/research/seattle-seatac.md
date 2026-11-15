@@ -30,6 +30,21 @@ Route A: start on **Departures Drive** (upper, elevated, w428095059) at the nort
 - **SR-518**: 3.42-mile freeway Burien–Tukwila, 38,000–102,000 veh/day, busiest between the airport and I-5; becomes I-405 east of I-5 ([SR 518](https://en.wikipedia.org/wiki/Washington_State_Route_518)). OSM: 3 EB lanes, 60 mph, asphalt with concrete bridge decks; at 51st Ave S "Seattle | Renton | Tacoma; Portland; 51st Ave S; Southcenter Pkwy"; final 2-lane split Renton (left) / Tacoma-Portland (right).
 - **Deck guards** (`bridge-guards.json`): concrete barriers on the expressway (w6429448, w23609851, w1165458667), its ramps (w291552722, w428094930, w1165458668), Departures Drive (w37017723, w963677010, w428095059, exit w1548998258), Airport Departures (w427909577, w428003817), Ramp w31928842, Exit to Parking w103929484, w369418216 and w124272635 (seen from below only). Rideshare ramp w955297074: solid parapet with a pipe rail. Garage service decks w955297071 / w722314207 / w1165140428 / w1165151564 / w256517923: solid concrete walls (seen from the surface car park; weak).
 - **Garage aisles**: OSM maps the Port garage's aisles (rel 15763840) as `highway=service` on `layer=2` (w344201644-55, w430427477, w430442190, w722071151-60, w1444470941, ramp w521034679) and `layer=1` `tunnel=building_passage` `level=3` drives. A way on layer ≥ 1 lying wholly inside a multi-storey car park is taken as an internal deck (`game/src/garage-decks.js`): not drawn, not routable. The ground-level entry ways stay as mapped but have no mapped exit, so they are not routable.
+- **Airport Expressway cross-section** (2026-11-15, live OSM `map` calls over 47.4405–47.4480, −122.3005…−122.2945): the
+  3-lane NB way w31928831 starts where Ramp w31928834 (1 lane) and Ramp w31928843 (2 lanes) meet at n255173024, and its
+  4th lane comes in from the **left**: link w428003842 (1 lane) runs west of it and joins at n357685639 (47.4440, −122.2966),
+  where w256231543 (4 lanes) begins. The one-kerb rule (`kerbRuns`) held the chain's left kerb half a lane out (it spans
+  3–5 lanes), so both 3-lane parts (w31928831 NB, w1165460001 SB) lay 1.85 m left of their ways and the 4th lane opened
+  on the right. With `kerbTapers: 'motorway'` every expressway run of one lane count whose end steps can be tapered (one
+  side of the node at grade) is centred on its own way again and the kerb steps are tapered (world.js). The 5-lane parts
+  w6429441 / w23609851 still sit 1.85 m right of theirs: both sides of their lane change are raised, where no taper is drawn.
+- **Ramps w31928834 / w31928843** run 5.6–5.8 m apart over the 40 m before they converge (OSM), room for 1 + 2 lanes at
+  3.7 m and no shoulders between them. The raised one (w31928834, coming down 5.5 → 0 m) is already at its narrowest
+  (lane 3.15 m) and its wall stood up to 1 m on the other's left shoulder and lane (11.4 m² of overlap beside it). The
+  ramp at grade gives way for the rest (world.js, `rampTapers` districts, ramps only): w31928843's left side narrows
+  0.55 m (lanes 3.43 m) from there to the merge; 0.2 m² of overlap is left. MODEL (lane and shoulder widths are
+  estimates); not checked on Street View. The convergence itself (the last 42 m to n255173024) still overlaps, as any
+  merge OSM maps to one node does.
 - **Sign gantries** on the expressway are not drawn: not in OSM and their text is not legible in any panorama.
 
 ## 3. Landmarks

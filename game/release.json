@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-45e8f8cc23e1b804",
-  "sourceCommit": "f28b75b187e28621fe015dd1d73f022147b155e2",
-  "fingerprint": "45e8f8cc23e1b804f6d95f9734fd9c57476a8189b62ec22e7cb38ed41665d8c1",
+  "releaseId": "game-77605084028e703b",
+  "sourceCommit": "74f93ead6efb3f894a54add3fad7a5de2241f6bc",
+  "fingerprint": "77605084028e703bb5b08d159f380400b8a08308dbf775ab9fb978fa8c862074",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -246,7 +246,7 @@
     },
     {
       "path": "game/src/bridge-bents.js",
-      "sha256": "93d11a8864f370bea4c3366480fd89350ea67945dcc65c36813f90430e98bdf6"
+      "sha256": "d6c136797ea727d3315155ae806b995d06af8f79132a9a93c4084693a62221bc"
     },
     {
       "path": "game/src/bridge-guards.js",
@@ -1886,7 +1886,7 @@
     },
     {
       "path": "game/src/world-api.js",
-      "sha256": "a2af9a870e909bdb2f034b05c5e1b10182f2c4043ad6462488ba092a09ef6dc4"
+      "sha256": "8375dbdfadebd5c9cd742844cd3befebebd1e8594ab284215cb97e2967f0c8bd"
     },
     {
       "path": "game/src/world-areas-water.js",
@@ -1894,7 +1894,7 @@
     },
     {
       "path": "game/src/world-bridge-structures.js",
-      "sha256": "62b58b82e7c9162920a0cab118784ba01fa35eb91d74b2f46de3863f1f782a20"
+      "sha256": "a2f03c8ff750ec20cff26ebfa3d1686a39f0709eadb6e3e6f6127127e06be264"
     },
     {
       "path": "game/src/world-bridge-tram-signals.js",
@@ -1998,11 +1998,11 @@
     },
     {
       "path": "game/src/world-shared.js",
-      "sha256": "848b50021a9442887e0a78ba0c059fc4894b8fa86318ad1c7f82b11a75a27388"
+      "sha256": "85c8b3710bc61e1157f9d3cbf4e642c90a5dbaf94a6e40354ba8ad0688672dd0"
     },
     {
       "path": "game/src/world-side-joins.js",
-      "sha256": "c9ac75c228f5708f26850723e1b03cb89fc1b9c99c9ee1f2407771b60693b6c3"
+      "sha256": "098aab0e3a0df993b50951cd4ae9e8b81ce94978dfdc7834fa238f699abe6b2a"
     },
     {
       "path": "game/src/world-sports.js",
@@ -2018,11 +2018,11 @@
     },
     {
       "path": "game/src/world-walls.js",
-      "sha256": "bf5e90105b1498ab4dba7ba24a04489cac56e5cd3dd1f7244e6f296c88157419"
+      "sha256": "7190b6cf5ff3b61fe0f195edffcc6d04b94c880918e11589a9e246bcf93542b0"
     },
     {
       "path": "game/src/world.js",
-      "sha256": "d596db808ea8651fec9c8e0ca8e3303a8bbd7145cc1c8f09af27295e5feeee8f"
+      "sha256": "1a191bb02ad551a6c3d970b1758b818acd11a9a9058970de14c43f56c7f144b2"
     },
     {
       "path": "game/src/worldmap.js",

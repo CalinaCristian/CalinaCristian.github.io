@@ -19,6 +19,9 @@ export const LOOK_REVIEW = {
         // matched the class colour, no row: Biserica Domnița Bălașa w78564921 (cream stone with red-brown brick bands;
         // panorama 2tFsWbmuz3BKVzjdbjqNww (44.42822, 26.100585) heading 277)
     },
+    'bucharest-pipera': {
+        w764534288: { style: 'glass', colour: '#4B5258', note: 'Courtyard by Marriott Floreasca: dark anthracite glass tower over a mirrored podium (drawn as saturated blue glass); dossier bucharest-pipera.md, pose pip-courtyard (44.478444, 26.106966) heading 163' },
+    },
     'seattle-bellevue': {
         // Bravern 2 (w38224225, 47.617297, -122.192967 heading 184): cream stone at street level, but the street face is its
         // 22-storey OSM part w1474780191 (glass curtain above): one colour per part cannot hold both; the part stays glass and

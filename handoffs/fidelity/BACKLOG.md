@@ -6,8 +6,7 @@ folder may hold: [`AGENTS.md`](../../AGENTS.md).
 
 ## Owner reports
 
-No owner report is open. The 2026-11-15 reports are fixed; the last of them (kerb tapers on the Bellevue / SeaTac decks)
-still needs its live re-check after the next release.
+No owner report is open: every 2026-11-15 report is fixed and re-checked live.
 
 ## Other open work
 

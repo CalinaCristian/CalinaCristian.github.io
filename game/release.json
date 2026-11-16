@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-0204257eab7d091b",
-  "sourceCommit": "40bbdd932c271902799926b069609933655b35be",
-  "fingerprint": "0204257eab7d091b1fa0e3bdd8e7006ef5116e544a6b318b6f70e127db112c6a",
+  "releaseId": "game-bf59887d513c404f",
+  "sourceCommit": "073ee98f8bce9d35c0b839dc2c7d015a6a9ebb5d",
+  "fingerprint": "bf59887d513c404fb232031112c6c60d13f7fe29e26ec62419a336e859a8db65",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -402,7 +402,7 @@
     },
     {
       "path": "game/src/cities.js",
-      "sha256": "b65d16ec1191e6102f4f61533fa68ec996e3127e68fe492fab0060ca20c9b674"
+      "sha256": "3a0841ae90ac86423bb9b004c8df71de56da7b53ae79c3f65b4bf9f9c21b7192"
     },
     {
       "path": "game/src/cockpit-displays.js",
@@ -942,7 +942,7 @@
     },
     {
       "path": "game/src/pedestrians-walk.js",
-      "sha256": "2361cea08b744a8bbe3a2db29d99eddcee902c2fa4252889c95ee9d6270b4a8e"
+      "sha256": "fe38f9b0f0b38caed55976e105fc2a96724447136b5e34d295128ff004f972ce"
     },
     {
       "path": "game/src/pedestrians.js",
@@ -1914,7 +1914,7 @@
     },
     {
       "path": "game/src/world-edge-ribbons.js",
-      "sha256": "dd66cd22360ae83e34f0e30e1efbed8d21ea2c60a76e5a5d86fa47d13ea0a55d"
+      "sha256": "a6f9a2ef934ac3339fd1bdc894e7ab41a3b56f261cf7d1b6902e31cc0a48c115"
     },
     {
       "path": "game/src/world-extrusion.js",
@@ -1982,11 +1982,11 @@
     },
     {
       "path": "game/src/world-ribbons.js",
-      "sha256": "92f0c8057ae271e907537dc58ae75b058e2cf4efa56fd9cdcdb22115dfa523ba"
+      "sha256": "5dc9758e633053aaab3dae36e51ebc5083ac4b34b5ef4db59be80143b0f47ab0"
     },
     {
       "path": "game/src/world-road-graph.js",
-      "sha256": "93cf19131f1a985c9ce048f50894e63c928f6a6a2dc27fa6f72c22001d422245"
+      "sha256": "66a83b1166b76eca8f84728da94381ab01fae552dcc1b6143788fb2cfd833b5c"
     },
     {
       "path": "game/src/world-roofads-fuel.js",
@@ -2002,7 +2002,7 @@
     },
     {
       "path": "game/src/world-side-joins.js",
-      "sha256": "38147aae202eb4a5aa0356d9fa7036d76f6461de2ff3c4f4f9fd7faa5224be04"
+      "sha256": "c9ac75c228f5708f26850723e1b03cb89fc1b9c99c9ee1f2407771b60693b6c3"
     },
     {
       "path": "game/src/world-sports.js",
@@ -2022,7 +2022,7 @@
     },
     {
       "path": "game/src/world.js",
-      "sha256": "1e4e50495f1451258e1e10329d3d813710d5676b1468c3ba65d533856fcaeedb"
+      "sha256": "d596db808ea8651fec9c8e0ca8e3303a8bbd7145cc1c8f09af27295e5feeee8f"
     },
     {
       "path": "game/src/worldmap.js",

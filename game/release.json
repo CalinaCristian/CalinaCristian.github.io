@@ -1,7 +1,7 @@
 {
-  "releaseId": "game-bf59887d513c404f",
-  "sourceCommit": "073ee98f8bce9d35c0b839dc2c7d015a6a9ebb5d",
-  "fingerprint": "bf59887d513c404fb232031112c6c60d13f7fe29e26ec62419a336e859a8db65",
+  "releaseId": "game-ea7c3d45d3eded5e",
+  "sourceCommit": "dd30a65f9d51fb70f603406cc5c8461cb1aa06ff",
+  "fingerprint": "ea7c3d45d3eded5e544c3be1e9958850e083cfa1c3f510d856c1c562c6284af5",
   "normalization": "HTML release/source meta lines excluded to avoid a self-referential hash",
   "sources": [
     {
@@ -318,7 +318,7 @@
     },
     {
       "path": "game/src/building-review-look.js",
-      "sha256": "7079a446f423cddf75523a81a79405a345f74255425e8a54a0ff6edc9796e5d2"
+      "sha256": "a4b84bcf6d7d3dfa2f584a7dd5d581a7fab5318e9041d4b82d4af7b0f752d546"
     },
     {
       "path": "game/src/building-review.js",

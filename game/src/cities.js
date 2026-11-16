@@ -241,10 +241,9 @@ const SEA_DISTRICTS = {
         kerbRuns: true, rampTapers: true, laneDropTapers: true, embankGuards: true, stackedDecks: true,
         // the Airport Expressway's parts each on their own way, the kerb steps between them tapered (world.js `kerbTapers`)
         kerbTapers: 'motorway',
-        congestion: [ // from game/research/seattle-seatac.json traffic.hotspots
+        congestion: [ // from game/research/seattle-seatac.json traffic.hotspots (the SR-518 / I-5 one lies outside the district)
             { lat: 47.44400, lon: -122.30000, radius: 250, hours: [[4.5,  7.5],  [11,  14]], level: 0.70, note: 'Departures Drive kerb' },
             { lat: 47.44350, lon: -122.30000, radius: 250, hours: [[11,  14],  [20.5,  24]], level: 0.60, note: 'Arrivals Drive kerb' },
-            { lat: 47.46300, lon: -122.26800, radius: 500, hours: [[6.5,  9],  [15,  19]], level: 0.65, note: 'SR-518 EB approaching I-5/I-405 (Southcenter)' },
         ],
     },
     bellevue: {

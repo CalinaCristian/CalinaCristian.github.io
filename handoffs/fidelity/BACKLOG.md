@@ -6,11 +6,8 @@ folder may hold: [`AGENTS.md`](../../AGENTS.md).
 
 ## Owner reports
 
-All 2026-11-15 reports are fixed and re-checked live (release 9f47516f), so they are removed. What is left of them:
-
-| Where | Open | Next step |
-|---|---|---|
-| Bellevue / SeaTac decks | Kerb tapers are not drawn on decks or raised ramps: lane lines still step 1.75–3.5 m on the NE 8th St deck over I-405 (430 … 520, -307 / -321) and the Airport Expressway's 5-lane parts (w6429441, w23609851, raised at their lane change) sit 1.85 m off their ways | Taper on decks once the deck guards and bents are shown to follow a varying width |
+No owner report is open. The 2026-11-15 reports are fixed; the last of them (kerb tapers on the Bellevue / SeaTac decks)
+still needs its live re-check after the next release.
 
 ## Other open work
 

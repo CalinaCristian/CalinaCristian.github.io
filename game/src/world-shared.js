@@ -120,6 +120,9 @@ if (typeof window !== 'undefined') setTimeout(() => { try { BRAND_RES ||= brandP
 // (spec 10 load budget) the motorway / trunk test per road type, kept (a regular expression per call before)
 export const MOTORWAY_TRUNK = new Map(), isMotorwayTrunk = (t) => { let v = MOTORWAY_TRUNK.get(t); if (v === undefined) MOTORWAY_TRUNK.set(t, v = /motorway|trunk/.test(t)); return v; };
 export const shoulderOf = (e) => (e.roadWidthSource && (e.roadWidthSource.source === 'OSM width' || e.roadWidthSource.review)) ? 0 : (isMotorwayTrunk(e.type) ? (e.type.endsWith('_link') ? 0.6 : 1.2) : 0.15);
+/** a kerb taper's extra width (world.js `kerbTapers`, linear along the edge) on side s (+1 right, -1 left) at `along` metres
+ *  from e.a; 0 on any other edge. For what measures a deck's sides at a point instead of from its mitred corners. */
+export const kerbTaperAt = (e, s, along) => { const t = e.kerbTaper ? (s > 0 ? e.taperR : e.taperL) : null; return t ? t[0] + (t[1] - t[0]) * Math.min(1, Math.max(0, along / e.len)) : 0; };
 export const AWNING = ['#b91c1c', '#1f4e79', '#14532d', '#7c2d12', '#374151', '#6b21a8', '#0f766e', '#a16207'].map(rgb);
 export const PHASES = [];
 let _phaseT = 0, _phaseName = '';

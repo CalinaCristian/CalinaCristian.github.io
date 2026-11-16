@@ -7,7 +7,7 @@ import { exactMemo3 } from './bridge-surface-mesh.js';
 import { clamp, distPointSeg, pointInPolygon } from './util.js';
 import { rgb, shadeRgb } from './geobuild.js';
 import { GUARD_CONCRETE, bridgeGuardRow, emitBridgeGuard, emitGuardScreen, emitGuardSteel, guardBlockH } from './bridge-guards.js';
-import { BoxGrid, Y } from './world-shared.js';
+import { BoxGrid, Y, kerbTaperAt } from './world-shared.js';
 
 export function buildWallsBarriers(ctx) {
     const {
@@ -25,7 +25,8 @@ export function buildWallsBarriers(ctx) {
             ribGrid.each(x, z, x, z, (rb) => { if (rb.e === own || (rb.e && (rb.e.a === own.a || rb.e.b === own.b || rb.e.a === own.b || rb.e.b === own.a)) || (rb.node && (rb.node === own.a || rb.node === own.b))) return; if (x < rb.x0 || x > rb.x1 || z < rb.z0 || z > rb.z1 || !pointInPolygon(x, z, rb.poly)) return; const h = rb.e ? yAlong(rb.e,x,z) : padHeightAt(rb.node, x, z); hs.push(h); hs.tol = Math.max(hs.tol || 0, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85 ? 0 : 1); (hs.items || (hs.items = [])).push([h, rb.e && Math.abs(rb.e.dirx * own.dirx + rb.e.dirz * own.dirz) > 0.85]); }); return hs; };
         const add = (e, s, offset, kind, tFrom, tTo, force = false) => {
             // sub-divide into ~6 m pieces so the wall can be cut where it would cross another carriageway (junction mouths)
-            const offAt = typeof offset === 'function' ? offset : () => offset; // (a lateral offset may vary along the edge: the line between two carriageways)
+            const offAt0 = typeof offset === 'function' ? offset : () => offset; // (a lateral offset may vary along the edge: the line between two carriageways)
+            const offAt = e.kerbTaper ? t => offAt0(t) + kerbTaperAt(e, s, t * e.len) : offAt0; // (a kerb taper, world.js kerbTapers: the wall follows the tapered side)
             const yAtT = (t) => { const off = offAt(t); return Y.road + yAlong(e,e.a.x+e.dirx*e.len*t+e.nx*off*s,e.a.z+e.dirz*e.len*t+e.nz*off*s); };
             // trench walls reach street level (cars up there must not fall in) — except under a tunnel's roof
             const range = (y) => kind === 'rail' ? [y > 2.6 ? y - 2.2 : -1.5, y + 1.1] : kind === 'embank' ? [-1.5, y + 1.1] : kind === 'trench' ? [y - 1.5, (e.lidded || (e.tunnel && y < -4.2)) ? Math.min(1.0, y + 4.6) : 1.0] : [y - 1.0, y + 0.85];
@@ -279,12 +280,12 @@ export function buildWallsBarriers(ctx) {
             const step = Math.max(0.02, 1.5 / e.len);
             let ownv = ownAt.get(e); if (!ownv) ownAt.set(e, ownv = []);
             for (const s of [1, -1]) {
-                const off = (e.bridge ? widthAsphalt(e, s) + 0.3 : widthSide(e, s));
+                const off0 = (e.bridge ? widthAsphalt(e, s) + 0.3 : widthSide(e, s)), offT = t => off0 + kerbTaperAt(e, s, t * e.len); // (a kerb taper: on the tapered side)
                 let run = null;
                 const flush = () => {
                     if (!run) return;
                     const { ta, tb } = run; run = null;
-                    const P2 = (t) => [e.a.x + e.dirx * e.len * t + e.nx * off * s, e.a.z + e.dirz * e.len * t + e.nz * off * s];
+                    const P2 = (t) => [e.a.x + e.dirx * e.len * t + e.nx * offT(t) * s, e.a.z + e.dirz * e.len * t + e.nz * offT(t) * s];
                     const pieces=e.sourceBridgeGrade?.known?Math.max(1,Math.ceil((tb-ta)*e.len/1.5)):1;
                     for(let piece=0;piece<pieces;piece++){
                         const aT=ta+(tb-ta)*piece/pieces,bT=ta+(tb-ta)*(piece+1)/pieces;
@@ -296,7 +297,7 @@ export function buildWallsBarriers(ctx) {
                 for (let t = t0, k = 0; t <= t1 + 1e-6; t += step, k++) {
                     const tt = Math.min(t, t1);
                     let own = ownv[k]; if (own === undefined) own = ownv[k] = Y.road + yAlong(e,e.a.x+e.dirx*e.len*tt,e.a.z+e.dirz*e.len*tt);
-                    const x = e.a.x + e.dirx * e.len * tt + e.nx * (off + 0.6) * s, z = e.a.z + e.dirz * e.len * tt + e.nz * (off + 0.6) * s;
+                    const x = e.a.x + e.dirx * e.len * tt + e.nx * (offT(tt) + 0.6) * s, z = e.a.z + e.dirz * e.len * tt + e.nz * (offT(tt) + 0.6) * s;
                     const ix = e.a.x + e.dirx * e.len * tt + e.nx * (s > 0 ? e.wR : e.wL) * 0.5 * s, iz = e.a.z + e.dirz * e.len * tt + e.nz * (s > 0 ? e.wR : e.wL) * 0.5 * s;
                     // (owner register #59: the drop beside a sunken ramp hovering about 0.45 m switched the barrier on and off in
                     // 2-5 m pieces) a run starts at a 0.45 m drop and goes on while the drop stays over 0.25 m

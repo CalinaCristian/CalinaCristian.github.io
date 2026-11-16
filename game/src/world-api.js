@@ -6,7 +6,7 @@ import { distPointSeg, pointInPolygon } from './util.js';
 import { buildingBlocksRoad } from './world-collide.js';
 import { signalState } from './signals.js';
 import { sidewalkWidth } from './sidewalk-source.js';
-import { Y } from './world-shared.js';
+import { Y, kerbTaperAt } from './world-shared.js';
 
 export function buildWorldApi(ctx) {
     const {
@@ -171,7 +171,7 @@ export function buildWorldApi(ctx) {
                     const t = Math.min(t0i, t1);
                     const own = Y.road + yAlong(e,e.a.x+e.dirx*e.len*t,e.a.z+e.dirz*e.len*t);
                     for (const s of [1, -1]) {
-                        const off = (e.bridge ? widthAsphalt(e, s) + 0.3 : widthSide(e, s)) + 0.6;
+                        const off = (e.bridge ? widthAsphalt(e, s) + 0.3 : widthSide(e, s)) + kerbTaperAt(e, s, e.len * t) + 0.6; // (a kerb taper: past the tapered side)
                         const x = e.a.x + e.dirx * e.len * t + e.nx * off * s, z = e.a.z + e.dirz * e.len * t + e.nz * off * s;
                         const land = this.roadHeight(x, z, { y: own });
                         const ix = e.a.x + e.dirx * e.len * t + e.nx * (s > 0 ? e.wR : e.wL) * 0.5 * s, iz = e.a.z + e.dirz * e.len * t + e.nz * (s > 0 ? e.wR : e.wL) * 0.5 * s;

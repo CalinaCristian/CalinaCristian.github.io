@@ -65,7 +65,7 @@ const chainPoint = (chain, s) => {
 /**
  * @param {object} o
  * @param {object[]} o.edges elevated bridge edges ({a, b, dirx, dirz, len})
- * @param {(e, side: 1|-1) => number} o.halfWidth deck half width on the edge's own right (+1) / left (-1)
+ * @param {(e, side: 1|-1, x, z) => number} o.halfWidth deck half width on the edge's own right (+1) / left (-1), at the point (x, z) of its centre line
  * @param {(e, x, z) => number} o.topAt deck surface height
  * @param {(e, x, z) => number} o.soffitAt deck underside height
  * @param {(x0, z0, x1, z1, cb) => void} [o.eachEdge] spatial query over `edges` (may repeat / over-report)
@@ -88,7 +88,7 @@ export function planBridgeBents({ edges, halfWidth, topAt, soffitAt, eachEdge, e
             const nx = -p.tz, nz = p.tx; // n = left of travel… sign is irrelevant, offsets are signed along n
             const top0 = topAt(p.e, p.x, p.z);
             // every deck measures its own two sides explicitly (edges may run either way, with unequal sides)
-            const sideOffset = (e, ex, ez, side) => { const w = halfWidth(e, side), ox = e.nx * side, oz = e.nz * side; return dot(ex + ox * w - p.x, ez + oz * w - p.z, nx, nz); };
+            const sideOffset = (e, ex, ez, side) => { const w = halfWidth(e, side, ex, ez), ox = e.nx * side, oz = e.nz * side; return dot(ex + ox * w - p.x, ez + oz * w - p.z, nx, nz); };
             const members = [];
             const addEdge = (e, x, z) => { const a = sideOffset(e, x, z, 1), b = sideOffset(e, x, z, -1); members.push({ lo: Math.min(a, b), hi: Math.max(a, b), top: topAt(e, x, z), soffit: soffitAt(e, x, z), e, x, z }); };
             addEdge(p.e, p.x, p.z);

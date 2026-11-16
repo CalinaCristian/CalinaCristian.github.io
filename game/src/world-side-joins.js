@@ -9,7 +9,7 @@ import { deckWalkShiftAt } from './bridge-walkways.js';
 import { bridgeJunctionSlab, uncoveredBridgePadBoundary } from './bridge-junction.js';
 import { BENT_MODEL } from './bridge-bents.js';
 import { basarabEdge } from './basarab-structure.js';
-import { BoxGrid, Y, convexHull, shoulderOf } from './world-shared.js';
+import { BoxGrid, Y, convexHull, kerbTaperAt, shoulderOf } from './world-shared.js';
 
 export function buildSideJoins(ctx) {
     const {
@@ -286,7 +286,9 @@ export function buildSideJoins(ctx) {
         const strips = [];
         for (const e of raised) if (!e.virtual && !e.tunnel && Math.max(e.ya, e.yb) > .3) strips.push({ e, id: e.id, na: e.a, nb: e.b, a: [e.a.x, e.a.z], b: [e.b.x, e.b.z], nx: e.nx, nz: e.nz, half: s2 => widthSide(e, s2), topAt: (x, z) => yAlong(e, x, z) + Y.road });
         const grid = new BoxGrid(32);
-        for (const st of strips) { const wr = st.half(1), wl = st.half(-1); st.poly = [[st.a[0] + st.nx * wr, st.a[1] + st.nz * wr], [st.b[0] + st.nx * wr, st.b[1] + st.nz * wr], [st.b[0] - st.nx * wl, st.b[1] - st.nz * wl], [st.a[0] - st.nx * wl, st.a[1] - st.nz * wl]]; grid.insert(Math.min(...st.poly.map(q => q[0])), Math.min(...st.poly.map(q => q[1])), Math.max(...st.poly.map(q => q[0])), Math.max(...st.poly.map(q => q[1])), st); }
+        // (a kerb taper, world.js kerbTapers: a carriageway's extra width at the point q of its centre line)
+        const stripTaper = (st, sd, q) => kerbTaperAt(st.e, sd, (q[0] - st.e.a.x) * st.e.dirx + (q[1] - st.e.a.z) * st.e.dirz);
+        for (const st of strips) { const wr = st.half(1), wl = st.half(-1), x = (sd, q) => stripTaper(st, sd, q); st.poly = [[st.a[0] + st.nx * (wr + x(1, st.a)), st.a[1] + st.nz * (wr + x(1, st.a))], [st.b[0] + st.nx * (wr + x(1, st.b)), st.b[1] + st.nz * (wr + x(1, st.b))], [st.b[0] - st.nx * (wl + x(-1, st.b)), st.b[1] - st.nz * (wl + x(-1, st.b))], [st.a[0] - st.nx * (wl + x(-1, st.a)), st.a[1] - st.nz * (wl + x(-1, st.a))]]; grid.insert(Math.min(...st.poly.map(q => q[0])), Math.min(...st.poly.map(q => q[1])), Math.max(...st.poly.map(q => q[0])), Math.max(...st.poly.map(q => q[1])), st); }
         // (owner L41, Grozavesti (731, -955): sky through the deck where the north-east branch leaves the main deck; Street
         // View there shows one continuous underside) the first segments of two carriageways leaving one split node share
         // that node, and a shared node meant "its own run continuing": the gore between them was never filled. A different
@@ -332,7 +334,7 @@ export function buildSideJoins(ctx) {
             return deck;
         };
         for (const st of strips) for (const side of [1, -1]) {
-            const w = st.half(side), dx = st.nx * side, dz = st.nz * side, at = q => { const ox = q[0] + dx * w, oz = q[1] + dz * w, top = st.topAt(ox, oz); return { st, ox, oz, top, hit: reach(st, ox, oz, dx, dz, top) }; };
+            const w = st.half(side), dx = st.nx * side, dz = st.nz * side, at = q => { const ox = q[0] + dx * (w + stripTaper(st, side, q)), oz = q[1] + dz * (w + stripTaper(st, side, q)), top = st.topAt(ox, oz); return { st, ox, oz, top, hit: reach(st, ox, oz, dx, dz, top) }; };
             const ends = [at(st.a), at(st.b)];
             if (ends[0].hit && ends[1].hit) {
                 // (owner, 2026-11-12, Grozavesti (80, -90) "random piece": one quad per segment cut straight across where the

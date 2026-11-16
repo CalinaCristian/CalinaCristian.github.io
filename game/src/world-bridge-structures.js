@@ -7,7 +7,7 @@ import { rgb } from './geobuild.js';
 import { BENT_MODEL, planBridgeBents } from './bridge-bents.js';
 import { bridgeBeam, buildBasarabStructure } from './basarab-structure.js';
 import { raisedRoadTriangles } from './basarab-anchor-clearance.js';
-import { BoxGrid, Y, undelta } from './world-shared.js';
+import { BoxGrid, Y, kerbTaperAt, undelta } from './world-shared.js';
 
 export function buildBridgeStructures(ctx) {
     const {
@@ -97,9 +97,11 @@ export function buildBridgeStructures(ctx) {
                     topAt: (x, z) => d.roofHeightAt(x, z), soffitAt: (x, z) => d.minHeightAt(x, z) });
             }
             const stripGrid = new BoxGrid(32);
+            // (a kerb taper, world.js kerbTapers: a carriageway's extra width at the point q of its centre line)
+            const stripTaper = (st, sd, q) => st.road ? kerbTaperAt(st.road, sd, (q[0] - st.road.a.x) * st.road.dirx + (q[1] - st.road.a.z) * st.road.dirz) : 0;
             for (const st of strips) {
-                const wr = st.half(1), wl = st.half(-1);
-                st.poly = [[st.a[0] + st.nx * wr, st.a[1] + st.nz * wr], [st.b[0] + st.nx * wr, st.b[1] + st.nz * wr], [st.b[0] - st.nx * wl, st.b[1] - st.nz * wl], [st.a[0] - st.nx * wl, st.a[1] - st.nz * wl]];
+                const wr = st.half(1), wl = st.half(-1), x = (sd, q) => stripTaper(st, sd, q); // (a kerb taper: the slab's width at each end)
+                st.poly = [[st.a[0] + st.nx * (wr + x(1, st.a)), st.a[1] + st.nz * (wr + x(1, st.a))], [st.b[0] + st.nx * (wr + x(1, st.b)), st.b[1] + st.nz * (wr + x(1, st.b))], [st.b[0] - st.nx * (wl + x(-1, st.b)), st.b[1] - st.nz * (wl + x(-1, st.b))], [st.a[0] - st.nx * (wl + x(-1, st.a)), st.a[1] - st.nz * (wl + x(-1, st.a))]];
                 stripGrid.insert(Math.min(...st.poly.map(q => q[0])), Math.min(...st.poly.map(q => q[1])), Math.max(...st.poly.map(q => q[0])), Math.max(...st.poly.map(q => q[1])), st);
             }
             // nearest neighbouring slab edge along a transverse ray from (ox, oz); null when the point is already on a neighbour
@@ -122,7 +124,7 @@ export function buildBridgeStructures(ctx) {
             const railJoin = (st, top) => st.rail && top > 8 + Y.road ? 12 : GAP;
             const slotQueue = [], goreQueue = [];
             for (const st of strips) for (const side of [1, -1]) {
-                const w = st.half(side), dx = st.nx * side, dz = st.nz * side, ends = [st.a, st.b].map(q => { const ox = q[0] + dx * w, oz = q[1] + dz * w, top = st.topAt(ox, oz); return { ox, oz, top, soffit: st.soffitAt(ox, oz), hit: reach(st, ox, oz, dx, dz, top, st.low ? 10 : railJoin(st, top)) }; }); // (a street-level river bridge: its slabs up to 10 m apart are one deck)
+                const w = st.half(side), dx = st.nx * side, dz = st.nz * side, ends = [st.a, st.b].map(q => { const ox = q[0] + dx * (w + stripTaper(st, side, q)), oz = q[1] + dz * (w + stripTaper(st, side, q)), top = st.topAt(ox, oz); return { ox, oz, top, soffit: st.soffitAt(ox, oz), hit: reach(st, ox, oz, dx, dz, top, st.low ? 10 : railJoin(st, top)) }; }); // (a street-level river bridge: its slabs up to 10 m apart are one deck)
                 if (!ends[0].hit !== !ends[1].hit && Math.max(ends[0].top, ends[1].top) > 2.5 && !st.low) goreQueue.push({ st, side, w, dx, dz, ends }); // (one end joined: a split)
                 if (!ends[0].hit || !ends[1].hit) continue;
                 const overWater = st.low && ends.some(q => isWater((q.ox + q.hit.x) / 2, (q.oz + q.hit.z) / 2)); // (a street-level bridge: only its slots over water)
@@ -223,7 +225,7 @@ export function buildBridgeStructures(ctx) {
         const carried = (x, z) => carriedSpans.some(sp => { const dx = sp.b[0] - sp.a[0], dz = sp.b[1] - sp.a[1], L = Math.hypot(dx, dz) || 1, t = ((x - sp.a[0]) * dx + (z - sp.a[1]) * dz) / L; return t > 6 && t < L - 6 && Math.abs((x - sp.a[0]) * -dz + (z - sp.a[1]) * dx) / L < sp.halfWidthM; });
         bridgeBents = planBridgeBents({
             edges: deckEdges.concat(railEdges),
-            halfWidth: (e, side) => e.railDeck ? e.half : widthSide(e, side),
+            halfWidth: (e, side, x, z) => e.railDeck ? e.half : widthSide(e, side) + kerbTaperAt(e, side, (x - e.a.x) * e.dirx + (z - e.a.z) * e.dirz), // (a kerb taper, world.js kerbTapers: the deck's width at the bent)
             topAt: (e, x, z) => e.railDeck ? e.railDeck.roofHeightAt(x, z) : yAlong(e, x, z) + Y.road,
             soffitAt: (e, x, z) => { if (e.railDeck) return e.railDeck.minHeightAt(x, z); const y = yAlong(e, x, z); return y + Y.road - Math.min(1.1, Math.max(.05, y)); },
             eachEdge: (x0, z0, x1, z1, cb) => { edgeGrid.each(x0, z0, x1, z1, cb); railEdgeGrid.each(x0, z0, x1, z1, cb); },

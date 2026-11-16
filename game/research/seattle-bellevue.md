@@ -191,10 +191,14 @@ Photo-derived values are medians of hand-picked regions. Facades of 400 Lincoln 
 - **Kerb tapers** (`kerbTapers` in `cities.js`, world.js): each one-way segment keeps the cross-section the
   width passes give it (the lane alignment's left kerb, a restored run's real width, its OSM lane count); where that steps
   at a node along a named one-way chain the narrower side widens to meet the wider one over 10 m per metre of step
-  (15–45 m), never on a deck or raised ramp and never back toward building footprints a kerb was narrowed for. MODEL, not
-  an OSM correction: OSM places the lane change at a node; the taper length is an estimate (WSDOT / MUTCD urban lane
-  tapers are of this order). Lane lines are laid from the tapered left kerb. Steps that stay: on the NE 8th St deck over
-  I-405 (no tapers on decks) and where both sides of a node are decks or claimed by another taper.
+  (15–45 m), never below grade or on a street-level bridge and never back toward building footprints a kerb was narrowed
+  for. MODEL, not an OSM correction: OSM places the lane change at a node; the taper length is an estimate (WSDOT / MUTCD
+  urban lane tapers are of this order). Lane lines are laid from the tapered left kerb. On the NE 8th St decks over I-405
+  (OSM splits them into 7–10 m segments whose left kerbs step 1.75–3.5 m) the slab, fascia, underside, guard line,
+  collision walls, bents, median fill and drivable surface follow the tapered kerbs; a left kerb on a deck opens from the
+  narrower width (the two decks already touch), and the westbound deck keeps its right-hand step at (434, -322), where its
+  fifth lane leaves as Exit → Renton (w623055163). Steps that stay elsewhere: where both sides of a node are claimed by
+  another taper.
 - **Junction rings** (`junctionFills`): 112th Ave NE × NE 8th St and Bellevue Way × NE 8th St are closed in OSM
   by rings of short ways between four or five junction nodes; the ring's inside is paved as one junction and its short
   ways carry no lane or edge lines and no inferred walkway on the inside (a median sliver showed between the pads before).

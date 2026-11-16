@@ -53,9 +53,12 @@ poses: `game/dev/reality/viewpoints.json` (`district: seatac`).
   4th lane comes in from the **left**: link w428003842 (1 lane) runs west of it and joins at n357685639 (47.4440, −122.2966),
   where w256231543 (4 lanes) begins. The one-kerb rule (`kerbRuns`) held the chain's left kerb half a lane out (it spans
   3–5 lanes), so both 3-lane parts (w31928831 NB, w1165460001 SB) lay 1.85 m left of their ways and the 4th lane opened
-  on the right. With `kerbTapers: 'motorway'` every expressway run of one lane count whose end steps can be tapered (one
-  side of the node at grade) is centred on its own way again and the kerb steps are tapered (world.js). The 5-lane parts
-  w6429441 / w23609851 still sit 1.85 m right of theirs: both sides of their lane change are raised, where no taper is drawn.
+  on the right. With `kerbTapers: 'motorway'` every expressway run of one lane count whose end steps can be tapered (decks
+  and raised parts included) is centred on its own way again and the kerb steps are tapered (world.js). The 5-lane parts
+  w23609851 (deck) / w6429441 (fill) move over only as far as the Link guideway beside them leaves room (its fill
+  2.6 m either side of the track, its nearer track 12.1–13 m left of w6429441, kept 0.3 m clear with the 1.2 m shoulder):
+  0.1–0.6 m right of the way on the deck, 0.6–1.3 m along the guideway. MODEL: lane, shoulder and guideway widths are
+  estimates.
 - **Ramps w31928834 / w31928843** run 5.6–5.8 m apart over the 40 m before they converge (OSM), room for 1 + 2 lanes at
   3.7 m and no shoulders between them. The raised one (w31928834, coming down 5.5 → 0 m) is already at its narrowest
   (lane 3.15 m) and its wall stood up to 1 m on the other's left shoulder and lane (11.4 m² of overlap beside it). The
